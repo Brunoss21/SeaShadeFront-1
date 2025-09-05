@@ -8,7 +8,7 @@ const Sidebar = () => {
     const[expanded, setExpanded] = useState(false);
 
     return (
-        <aside className={`fixed transition-all duration-300 border-b border-slate-300 border-r h-screen flex bg-slate-50 shadow-sm flex-col ${expanded? "w-2/3 md:w-1/3 lg:w-1/5" : "w-16"}`}>
+        <aside className={`fixed transition-all duration-300 border-b border-slate-300 border-r h-full flex bg-slate-50 shadow-sm flex-col ${expanded? "w-2/3 md:w-1/3 lg:w-1/5" : "w-16"}`}>
         <header className="text-slate-600 w-full flex flex-col  font-medium  h-full">
             <div className="flex justify-center items-center text-slate-600 mb-2">
 

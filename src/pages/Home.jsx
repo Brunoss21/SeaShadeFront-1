@@ -2,8 +2,6 @@ import Header from '../components/Header'
 import decoracaolg from "../assets/decoracaolg2.webp";
 import decoracaosm from "../assets/decoracaosm2.webp";
 import { Link } from 'react-router-dom';
-import ArrowButton from '../components/ArrowButton'
-import 'animate.css';
 
 const Home = () => {
 
@@ -13,25 +11,27 @@ const Home = () => {
       {/* min-h-[90vh] */}
       <Header />
       <div className="relative z-10 w-full mx-auto flex-1 flex flex-col justify-center px-4">
-        <main className="flex flex-col md:flex-row flex-1 md:mt-45 md:text-left justify-center">
+        <main className="flex flex-col md:flex-row flex-1 md:mt-40 md:text-left justify-center">
           <div className="flex flex-col max-w-screen-2xl w-full">
-          <h1 className="text-xl md:text-3xl font-bold sm:text-4xl">
+            <div className="flex flex-col gap-7">
+          <h1 className="text-xl md:text-3xl lg:text-3xl font-bold sm:text-4xl">
             <span className="text-slate-50 font-light">
               Seu negócio
             </span><br />
-            <strong className="md:text-7xl sm:text-[80px] text-[44px] break-words text-slate-50">
+            <strong className="lg:text-8xl md:text-7xl sm:text-[80px] text-[44px] break-words text-slate-50">
               Seguro &<br />
               <span className="break-words">Organizado.</span>
             </strong><br />
           </h1>
 
-          <p className="text-2xl font-light mt-4 text-slate-50">
+          <p className="text-2xl lg:text-3xl font-light text-slate-50">
             Gerencie <span className="text-yellow-300 font-medium">pedidos</span>, <span className="text-yellow-300 font-medium">estoque</span> e <span className="text-yellow-300 font-medium">mesas</span> com praticidade.
           </p>
+          </div>
           <div className="flex flex-col md:flex-row mt-8">
             <Link
-            to="/cadastro" className="bg-gradient-to-r from-amber-600 to-orange-600 text-slate-50 lg:px-24 md:px-25 cursor-pointer md:text-xl text-2xl py-4 text-center shadow-sm hover:brightness-110 transition-all duration-300">Comece já</Link>
-            <a href="#sobre"><ArrowButton>Saiba mais</ArrowButton></a>
+            to="/cadastro" className="bg-gradient-to-r from-yellow-500 to-orange-500 text-slate-50 font-semibold border-slate-900 rounded lg:px-24 md:px-25 cursor-pointer md:text-xl text-2xl py-4 text-center shadow-sm">Comece já</Link>
+            <div className="text-slate-50 lg:px-24 md:px-25 md:text-xl text-2xl py-4 text-center"><a href="#sobre" className="flex items-center">Saiba mais</a></div>
           </div>
           </div>
           <img

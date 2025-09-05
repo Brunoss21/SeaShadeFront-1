@@ -29,7 +29,7 @@ const Header = () => {
         {/* Botão "Entrar" para desktop */}
         <Link
           to="/login"
-          className="hidden md:block border px-4 py-1.5 transition-colors duration-300 hover:bg-slate-50 hover:text-black hover:border-slate-50">
+          className="hidden md:block border px-4 py-1.5 transition-colors duration-300 hover:bg-slate-50 hover:text-black hover:border-slate-50 rounded">
           Entrar
         </Link>
       </div>
