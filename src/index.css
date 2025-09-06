@@ -1,6 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap');
 @import "tailwindcss";
 
+/* Esconde a scrollbar horizontal */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
 @theme {
   --color-laranja-1000: #260F03;
   --color-laranja-950: #4B1F07;
