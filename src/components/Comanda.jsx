@@ -1,7 +1,7 @@
-import { Clock } from 'lucide-react';
+import { Clock, ZoomIn } from 'lucide-react';
 const Comanda = () => {
     return (
-        <div className="bg-slate-50 rounded-lg min-w-49 md:min-w-60 shadow overflow-hidden">
+        <div className="bg-slate-50 rounded-lg min-w-49 md:min-w-60 shadow cursor-pointer">
                             <div className="bg-slate-800 px-3 py-3 rounded-t-lg flex justify-between text-slate-300 text-sm items-center">
                                  
                                  <p className="font-medium text-center text-xl text-slate-50">#000</p>
@@ -55,8 +55,9 @@ const Comanda = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex font-semibold bg-slate-200 px-3 py-1 rounded-b-lg">
+                            <div className="flex font-semibold bg-slate-200 px-3 py-1 rounded-b-lg justify-between items-center">
                                     <p>Total: R$ 0,00</p>
+                                    <ZoomIn size="20" className="cursor-pointer"/>
                                 </div>
                         </div>
     );

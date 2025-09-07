@@ -6,6 +6,8 @@ import NovoPedido from './pages/NovoPedido';
 import Cardapio from './pages/Cardapio';
 import Inicio from './pages/Inicio';
 import Pedidos from './pages/Pedidos';
+import TodosPedidos from './pages/TodosPedidos';
+import CriarComanda from './pages/CriarComanda';
 const App = () => {
   return (
     
@@ -18,6 +20,12 @@ const App = () => {
         <Route path='/cardapio' element={<Cardapio />} />
         <Route path='/inicio' element={<Inicio />} />
         <Route path='/pedidos' element={<Pedidos />} />
+
+        {/* essa rota existe apenas para teste */}
+        <Route path='/todos-os-pedidos' element={<TodosPedidos />}/>
+        {/* essa rota existe apenas para teste */}
+        <Route path='/comanda1' element={<CriarComanda />}/>
+
       </Routes>
     
     

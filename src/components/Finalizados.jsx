@@ -5,7 +5,7 @@ const Finalizados = () => {
     <div className="px-2 text-sm md:text-base bg-slate-50 py-2 flex items-center text-center border-b border-slate-200">
       <p className="basis-2/6">#003</p>
       <p className="basis-2/6">1</p>
-      <p className="basis-1/6 bg-green-500 rounded shadow text-green-50 font-medium flex justify-center gap-2 items-center">
+      <p className="basis-1/6 bg-green-300 px-1 font-medium flex justify-center gap-2 items-center">
         Concluído <Check size="20" />
       </p>
       <p className="basis-2/6">06/09/2025</p>

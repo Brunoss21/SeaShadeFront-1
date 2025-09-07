@@ -2,6 +2,7 @@ import Sidebar from "../components/Sidebar"
 import HeaderLogged from "../components/HeaderLogged"
 import IconList from "../components/IconList"
 import { Link } from 'react-router-dom';
+import { Settings, CircleQuestionMark } from 'lucide-react'
 
 const NovoPedido = () => {
 const link = "";
@@ -33,15 +34,16 @@ const quantidade = 150;
                          </label>
 
                             <label className="flex justify-between items-center text-lg">
-                            Pedido rápido
+                                {/* Mostrar informações ao passar o mouse no icone de interrogação */}
+                            <span className="flex gap-2 items-center">Pedido rápido <CircleQuestionMark size="18"/></span>
                             <input type="checkbox" className="transform scale-123"/>
                          </label>
 
                          <label>
-                            <textarea className="inset-shadow-sm focus:ring focus:outline-none focus:border-indigo-600 bg-white py-4 lg:py-3 px-5 rounded border border-slate-300 text-slate-900 w-full" rows="4" cols="50" placeholder="Observações"></textarea>
+                            <textarea className="inset-shadow-sm focus:ring focus:outline-none focus:border-indigo-600 bg-white py-4 lg:py-3 px-5 rounded border border-slate-300 text-slate-900 w-full" rows="4" cols="50" placeholder="Observações (opcional)"></textarea>
                          </label>
-
-                            <button className="cursor-pointer shadow-sm bg-indigo-600 text-slate-50 font-medium rounded py-2">Criar comanda</button>
+                                {/* esse link existe apenas para teste */}
+                            <Link className="cursor-pointer shadow-sm bg-indigo-600 text-slate-50 font-medium rounded py-2 text-center" to="/comanda1">Criar comanda</Link>
                         </fieldset>
                     </form>
                 </div>
@@ -52,7 +54,8 @@ const quantidade = 150;
                     </h2>
 
                     {/* Indicadores */}
-                    <div className="flex flex-wrap gap-3">
+                    <div className="flex flex-wrap gap-3 items-center">
+                        
                         <div className="bg-slate-50 rounded-lg px-3 py-1 shadow-sm text-slate-800 text-sm md:text-base">
                         Quantidade: {quantidade}
                         </div>
@@ -62,6 +65,10 @@ const quantidade = 150;
                         <div className="bg-red-100 rounded-lg px-3 py-1 shadow-sm text-red-800 text-sm md:text-base">
                         Ocupados: 0
                         </div>
+                        <div className="flex items-center">
+                            <Settings />
+                        </div>
+                        
                     </div>
 
                     {/* Lista de ícones */}
