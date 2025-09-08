@@ -1,14 +1,43 @@
 import Header from '../components/Header';
+import axios from 'axios';
 import { useState } from 'react';
 import { PiUserCirclePlus } from "react-icons/pi";
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer'
-
+import { useNavigate } from 'react-router-dom';
 const Cadastro = () => {
+ const navigate = useNavigate();
  const[email, setEmail] = useState('');
  const[pass, setPass] = useState('');
  const[name, setName] = useState('');
  const[barraca,setBarraca] = useState('');
+ const [error, setError] = useState('');
+
+const handleCadastro = async (e) => {
+    e.preventDefault();
+    setError('');
+    if (!name || !email || !pass || !barraca) {
+      setError('Todos os campos são obrigatórios');
+      return;
+    }
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setError('E-mail inválido');
+      return;
+    }
+    try {
+      const response = await axios.post('http://localhost:8080/auth/register', {
+        nome: name,
+        email,
+        senha: pass,
+        barraca,
+      });
+      alert('Cadastro realizado com sucesso!');
+      navigate('/login');
+    } catch (err) {
+      setError(err.response?.data?.message || 'Erro no cadastro. Tente novamente.');
+    }
+  };
+
   return (
     <div className=" bg-slate-50 h-screen flex flex-col gap-1 md:gap-6">
       <Header />
@@ -17,7 +46,7 @@ const Cadastro = () => {
         <h1 className="  flex-wrap flex items-center text-4xl font-medium px-4 py-4 text-indigo-950 gap-3"><PiUserCirclePlus size="35" strokeWidth={4}/>Faça seu cadastro</h1>
         <h2 className="text-indigo-800 text-center flex-wrap">Já tem uma conta? <Link to="/login"><span className="border-b hover:text-indigo-600">Entrar</span></Link></h2>
         </div>
-        <form className="w-full md: md:max-w-md max-w-sm mx-auto">
+        <form className="w-full md: md:max-w-md max-w-sm mx-auto" onSubmit={handleCadastro}>
           <fieldset className="w-full flex flex-col gap-3">
              <label className="text-xl flex flex-col gap-2">
                Nome <br/>
