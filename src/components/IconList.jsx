@@ -1,5 +1,5 @@
 import { PiUmbrellaFill } from "react-icons/pi";
-
+// mudar a cor do guarda-sol conforme seu status
 function IconList({ quantidade }) {
   return (
     <div className="flex flex-wrap gap-4">

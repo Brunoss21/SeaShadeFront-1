@@ -5,7 +5,7 @@ import Cadastro from './pages/Cadastro';
 import NovoPedido from './pages/NovoPedido';
 import Cardapio from './pages/Cardapio';
 import Inicio from './pages/Inicio';
-import Pedidos from './pages/Pedidos';
+import Comandas from './pages/Comandas';
 import TodosPedidos from './pages/TodosPedidos';
 import CriarComanda from './pages/CriarComanda';
 const App = () => {
@@ -19,7 +19,7 @@ const App = () => {
         <Route path='/novo-pedido' element={<NovoPedido />} />
         <Route path='/cardapio' element={<Cardapio />} />
         <Route path='/inicio' element={<Inicio />} />
-        <Route path='/pedidos' element={<Pedidos />} />
+        <Route path='/comandas' element={<Comandas />} />
 
         {/* essa rota existe apenas para teste */}
         <Route path='/todos-os-pedidos' element={<TodosPedidos />}/>

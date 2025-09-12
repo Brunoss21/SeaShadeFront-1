@@ -14,7 +14,7 @@ const quantidade = 150;
             <HeaderLogged hasUndo link="/pedidos"></HeaderLogged>
             <main className="flex h-full flex-col lg:flex-row gap-10">
                 <div className="flex flex-col">
-                    <h1 className="text-2xl md:text-3xl font-bold">Abrir Pedido</h1>
+                    <h1 className="text-2xl md:text-3xl font-bold">Criar Comanda</h1>
                     <form>
                         <fieldset className="flex flex-2 flex-col gap-3 my-5">
                          <label>
@@ -43,7 +43,7 @@ const quantidade = 150;
                             <textarea className="inset-shadow-sm focus:ring focus:outline-none focus:border-indigo-600 bg-white py-4 lg:py-3 px-5 rounded border border-slate-300 text-slate-900 w-full" rows="4" cols="50" placeholder="Observações (opcional)"></textarea>
                          </label>
                                 {/* esse link existe apenas para teste */}
-                            <Link className="cursor-pointer shadow-sm bg-indigo-600 text-slate-50 font-medium rounded py-2 text-center" to="/comanda1">Criar comanda</Link>
+                            <Link className="cursor-pointer shadow-sm bg-indigo-600 text-slate-50 font-medium rounded py-2 text-center" to="/comanda1">Confirmar</Link>
                         </fieldset>
                     </form>
                 </div>

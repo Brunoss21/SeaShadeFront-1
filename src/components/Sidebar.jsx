@@ -26,7 +26,7 @@ const Sidebar = () => {
                     
                     <Link to="/inicio"><li className="cursor-pointer h-full flex p-2 items-center hover:bg-azul-100 hover:text-azul-600 rounded transition-all duration-200 truncate"><div className={`flex min-w-10 ${!expanded && "justify-center"}`}><LayoutPanelLeft/></div><div className={`${expanded? "flex-grow" : "overflow-hidden transition-all w-0"}`}>Início</div></li></Link>
 
-                    <Link to = "/pedidos"><li className="cursor-pointer h-full flex p-2 items-center hover:bg-azul-100 hover:text-azul-600 rounded transition-all duration-200 truncate"><div className={`flex min-w-10 ${!expanded && "justify-center"}`}><NotebookPen/></div><div className={`${expanded? "flex-grow" : "overflow-hidden transition-all w-0"}`}>Pedidos</div></li></Link>
+                    <Link to = "/comandas"><li className="cursor-pointer h-full flex p-2 items-center hover:bg-azul-100 hover:text-azul-600 rounded transition-all duration-200 truncate"><div className={`flex min-w-10 ${!expanded && "justify-center"}`}><NotebookPen/></div><div className={`${expanded? "flex-grow" : "overflow-hidden transition-all w-0"}`}>Comandas</div></li></Link>
                     
                     <Link to = "/cardapio"><li className="cursor-pointer h-full flex p-2 items-center hover:bg-azul-100 hover:text-azul-600 rounded transition-all duration-200 truncate"><div className={`flex min-w-10 ${!expanded && "justify-center"}`}><BookOpenText/></div><div className={`${expanded? "flex-grow" : "overflow-hidden transition-all w-0"}`}>Cardápio</div></li></Link>
                     

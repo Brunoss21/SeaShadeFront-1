@@ -6,7 +6,7 @@ const Finalizados = () => {
       <p className="basis-2/6">#003</p>
       <p className="basis-2/6">1</p>
       <p className="basis-1/6 bg-green-300 px-1 font-medium flex justify-center gap-2 items-center">
-        Concluído <Check size="20" />
+        Concluída <Check size="20" />
       </p>
       <p className="basis-2/6">06/09/2025</p>
       <p className="basis-2/6">00:08</p>

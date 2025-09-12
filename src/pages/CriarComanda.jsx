@@ -1,7 +1,7 @@
 import Sidebar from "../components/Sidebar"
 import HeaderLogged from "../components/HeaderLogged"
 import { Link } from 'react-router-dom';
-import { Search } from 'lucide-react'
+import { Search,Clock, CircleQuestionMark } from 'lucide-react'
 const CriarComanda = () => {
 
      return(
@@ -44,8 +44,14 @@ const CriarComanda = () => {
                 </div>
                 <div className="flex flex-col md:flex-row gap-5 w-full justify-end flex-2">
                 <div className="bg-slate-100 overflow-y-auto p-10 flex flex-col gap-5 rounded-lg h-210 w-full max-w-lg">
+                        <div className="flex justify-between items-center">
                         <h2 className="font-bold text-2xl">Itens</h2>
-                        <div className="flex ">
+                        {/* quanto passar o mouse em cima mostrar que o amber significa em preparação */}
+                        <div className="text-amber-500">
+                            <CircleQuestionMark size="18"/>
+                        </div>
+                        </div>
+                        <div className="flex font-semibold text-slate-500">
                         <h3 className="flex-1">Quantidade</h3>
                         <h3 className="flex-3 text-center">Produto</h3>
                         <h3 className="flex-1 text-right">Valor</h3>
@@ -55,59 +61,9 @@ const CriarComanda = () => {
                         <p className="flex-3 text-center">Caipirinha de uva</p>
                         <p className="flex-1 text-right">R$ 00,00</p>
                         </div>
-                        <div className="flex text-lg h-sm justify-between border-t pt-5 border-slate-300">
+                        <div className="flex text-lg h-sm justify-between border-t pt-5 border-slate-300 text-amber-500 font-medium">
                         <p className="flex-1">1</p>
                         <p className="flex-3 text-center">Item 2</p>
-                        <p className="flex-1 text-right">R$ 00,00</p>
-                        </div>
-                        <div className="flex text-lg h-sm justify-between border-t pt-5 border-slate-300">
-                        <p className="flex-1">1</p>
-                        <p className="flex-3 text-center">Item 3</p>
-                        <p className="flex-1 text-right">R$ 00,00</p>
-                        </div>
-                        <div className="flex text-lg h-sm justify-between border-t pt-5 border-slate-300">
-                        <p className="flex-1">1</p>
-                        <p className="flex-3 text-center">Item 3</p>
-                        <p className="flex-1 text-right">R$ 00,00</p>
-                        </div>
-                        <div className="flex text-lg h-sm justify-between border-t pt-5 border-slate-300">
-                        <p className="flex-1">1</p>
-                        <p className="flex-3 text-center">Item 3</p>
-                        <p className="flex-1 text-right">R$ 00,00</p>
-                        </div>
-                        <div className="flex text-lg h-sm justify-between border-t pt-5 border-slate-300">
-                        <p className="flex-1">1</p>
-                        <p className="flex-3 text-center">Item 3</p>
-                        <p className="flex-1 text-right">R$ 00,00</p>
-                        </div>
-                        <div className="flex text-lg h-sm justify-between border-t pt-5 border-slate-300">
-                        <p className="flex-1">1</p>
-                        <p className="flex-3 text-center">Item 3</p>
-                        <p className="flex-1 text-right">R$ 00,00</p>
-                        </div>
-                        <div className="flex text-lg h-sm justify-between border-t pt-5 border-slate-300">
-                        <p className="flex-1">1</p>
-                        <p className="flex-3 text-center">Item 3</p>
-                        <p className="flex-1 text-right">R$ 00,00</p>
-                        </div>
-                        <div className="flex text-lg h-sm justify-between border-t pt-5 border-slate-300">
-                        <p className="flex-1">1</p>
-                        <p className="flex-3 text-center">Item 3</p>
-                        <p className="flex-1 text-right">R$ 00,00</p>
-                        </div>
-                        <div className="flex text-lg h-sm justify-between border-t pt-5 border-slate-300">
-                        <p className="flex-1">1</p>
-                        <p className="flex-3 text-center">Item 3</p>
-                        <p className="flex-1 text-right">R$ 00,00</p>
-                        </div>
-                        <div className="flex text-lg h-sm justify-between border-t pt-5 border-slate-300">
-                        <p className="flex-1">1</p>
-                        <p className="flex-3 text-center">Item 3</p>
-                        <p className="flex-1 text-right">R$ 00,00</p>
-                        </div>
-                        <div className="flex text-lg h-sm justify-between border-t pt-5 border-slate-300">
-                        <p className="flex-1">1</p>
-                        <p className="flex-3 text-center">Item 3</p>
                         <p className="flex-1 text-right">R$ 00,00</p>
                         </div>
                     </div>
@@ -115,15 +71,15 @@ const CriarComanda = () => {
                         <h2 className="font-bold text-2xl">Resumo do Pedido</h2>
                         <div className="flex text-lg justify-between">
                         <p>Quantidade de Itens</p>
-                        <p>1</p>
+                        <p className="font-semibold">2</p>
                         </div>
                         <div className="flex text-lg justify-between">
                         <p>Status</p>
-                        <p>Aguardando Atendimento</p>
+                        <p className="font-semibold text-orange-500 flex gap-2 items-center"><Clock size="18" strokeWidth={3}/>Aguardando Pedido</p>
                         </div>
                         <div className="flex text-lg justify-between">
                         <p>Subtotal</p>
-                        <p>R$ 00,00</p>
+                        <p className="font-semibold">R$ 00,00</p>
                         </div>
                     </div>
                    </div> 

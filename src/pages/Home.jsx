@@ -30,8 +30,8 @@ const Home = () => {
           </div>
           <div className="flex flex-col md:flex-row mt-8">
             <Link
-            to="/cadastro" className="bg-gradient-to-r from-yellow-500 to-orange-500 text-slate-50 font-semibold border-slate-900 rounded lg:px-24 md:px-25 cursor-pointer md:text-xl text-2xl py-4 text-center shadow-sm">Comece já</Link>
-            <div className="text-slate-50 lg:px-24 md:px-25 md:text-xl text-2xl py-4 text-center"><a href="#sobre" className="flex items-center">Saiba mais</a></div>
+            to="/cadastro" className="bg-gradient-to-r from-yellow-500 to-orange-500 text-slate-50 font-semibold border-slate-900 rounded lg:px-24 md:px-25 cursor-pointer md:text-2xl text-2xl py-4 text-center shadow-sm">Comece já</Link>
+            <div className="text-slate-50 lg:px-24 md:px-25 md:text-2xl text-2xl py-4 text-center"><a href="#sobre" className="flex items-center">Saiba mais</a></div>
           </div>
           </div>
           <img

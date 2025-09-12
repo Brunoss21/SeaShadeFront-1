@@ -15,7 +15,7 @@ const quantidade = 150;
             <HeaderLogged/>
             <main className="flex h-full flex-col lg:flex-row gap-10">
                 <div className="flex flex-col gap-5 w-full">
-                    <h1 className="text-2xl md:text-3xl font-bold">Pedidos em Andamento</h1>
+                    <h1 className="text-2xl md:text-3xl font-bold">Comandas em Andamento</h1>
                     <div className="w-full flex gap-5 overflow-x-auto scrollbar-hide">
                         <Comanda />
                         <Comanda />
@@ -28,10 +28,10 @@ const quantidade = 150;
                         <Comanda />
                     </div>
                     <div className="text-right flex justify-end">
-                    <Link to="/todos-os-pedidos" className="flex items-center text-orange-500 font-medium">Ver tudo <ChevronsRight size="17" /></Link>
+                    <Link to="/todos-os-pedidos" className="flex items-center font-medium">Ver tudo <ChevronsRight size="17" /></Link>
                     </div>
                     <div className="flex flex-col md:flex-row justify-between pt-5 gap-4">
-                    <h2 className="text-2xl md:text-3xl font-bold">Finalizados</h2>
+                    <h2 className="text-2xl md:text-3xl font-bold">Finalizadas</h2>
                     <div className="flex-wrap flex gap-2 text-indigo-700 items-center justify-between bg-indigo-100 p-2 rounded-lg">
                     <p className="pl-2 flex items-center justify-center gap-2 font-medium"><Funnel size="15"/>Filtros</p>
                     <input type="text" className="rounded-full px-4 max-w-27 py-1 bg-slate-50" placeholder="Status"/>
