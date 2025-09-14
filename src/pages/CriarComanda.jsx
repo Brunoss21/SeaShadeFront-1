@@ -1,7 +1,7 @@
 import Sidebar from "../components/Sidebar"
 import HeaderLogged from "../components/HeaderLogged"
 import { Link } from 'react-router-dom';
-import { Search,Clock, CircleQuestionMark } from 'lucide-react'
+import { Search,Clock, CircleQuestionMark,Check, X } from 'lucide-react'
 const CriarComanda = () => {
 
      return(
@@ -22,7 +22,7 @@ const CriarComanda = () => {
                     <form>
                         <fieldset className="flex max-w-lg flex-col gap-3 my-5">
                          <label>
-                            Selecionar Item
+                            Selecionar item
                            <div className="relative w-full">
                                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
                                 <input
@@ -36,8 +36,8 @@ const CriarComanda = () => {
                          </label>
                                 {/* esse link existe apenas para teste */}
                                 <div className="flex justify-between gap-2">
-                            <Link className="cursor-pointer shadow-sm bg-slate-600 text-slate-50 font-medium rounded py-2 text-center flex-2" to="/comanda1">Selecionar pelo cardápio</Link>
-                            <Link className="cursor-pointer shadow-sm bg-indigo-600 text-slate-50 font-medium rounded py-2 text-center flex-1" to="/comanda1">Adicionar</Link>
+                            <Link className="text-lg cursor-pointer shadow-sm bg-slate-600 text-slate-50 font-medium rounded py-2 text-center flex-2" to="/comanda1">Selecionar pelo cardápio</Link>
+                            <Link className="text-lg cursor-pointer shadow-sm bg-indigo-600 text-slate-50 font-medium rounded py-2 text-center flex-1" to="/comanda1">Adicionar</Link>
                             </div>
                         </fieldset>
                     </form>
@@ -67,10 +67,10 @@ const CriarComanda = () => {
                         <p className="flex-1 text-right">R$ 00,00</p>
                         </div>
                     </div>
-                    <div className="bg-slate-100 p-10 flex flex-col gap-5 rounded-lg max-h-80 lg:max-h-65 w-full max-w-md ">
-                        <h2 className="font-bold text-2xl">Resumo do Pedido</h2>
+                    <div className="bg-slate-100 p-10 flex flex-col gap-5 rounded-lg max-h-90 lg:max-h-75 w-full max-w-md ">
+                        <h2 className="font-bold text-2xl">Resumo da comanda</h2>
                         <div className="flex text-lg justify-between">
-                        <p>Quantidade de Itens</p>
+                        <p>Quantidade de itens</p>
                         <p className="font-semibold">2</p>
                         </div>
                         <div className="flex text-lg justify-between">
@@ -80,6 +80,10 @@ const CriarComanda = () => {
                         <div className="flex text-lg justify-between">
                         <p>Subtotal</p>
                         <p className="font-semibold">R$ 00,00</p>
+                        </div>
+                        <div className="flex gap-2">
+                            <button className="flex-1 bg-slate-600 rounded text-slate-50 text-lg font-medium py-2 flex gap-1 justify-center items-center">Cancelar</button>
+                            <button className="flex-2 bg-green-600 rounded text-slate-50 text-lg font-medium py-2 flex gap-1 justify-center items-center">Finalizar atendimento <Check size="18" strokeWidth={3}/></button>
                         </div>
                     </div>
                    </div> 

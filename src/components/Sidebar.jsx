@@ -30,17 +30,17 @@ const Sidebar = () => {
                     
                     <Link to = "/cardapio"><li className="cursor-pointer h-full flex p-2 items-center hover:bg-azul-100 hover:text-azul-600 rounded transition-all duration-200 truncate"><div className={`flex min-w-10 ${!expanded && "justify-center"}`}><BookOpenText/></div><div className={`${expanded? "flex-grow" : "overflow-hidden transition-all w-0"}`}>Cardápio</div></li></Link>
                     
-                    <Link to = "estoque"><li className="cursor-pointer h-full flex p-2 items-center hover:bg-azul-100 hover:text-azul-600 rounded transition-all duration-200 truncate"><div className={`flex min-w-10 ${!expanded && "justify-center"}`}><PackageOpen/></div><div className={`${expanded? "flex-grow" : "overflow-hidden transition-all w-0"}`}>Estoque</div></li></Link>
+                    <Link to = "/estoque"><li className="cursor-pointer h-full flex p-2 items-center hover:bg-azul-100 hover:text-azul-600 rounded transition-all duration-200 truncate"><div className={`flex min-w-10 ${!expanded && "justify-center"}`}><PackageOpen/></div><div className={`${expanded? "flex-grow" : "overflow-hidden transition-all w-0"}`}>Estoque</div></li></Link>
                     
-                    <Link to = "relatorios"><li className="cursor-pointer h-full flex p-2 items-center hover:bg-azul-100 hover:text-azul-600 rounded transition-all duration-200 truncate"><div className={`flex min-w-10 ${!expanded && "justify-center"}`}><ChartSpline/></div><div className={`${expanded? "flex-grow" : "overflow-hidden transition-all w-0"}`}>Relatórios</div></li></Link>
+                    <Link to = "/relatorios"><li className="cursor-pointer h-full flex p-2 items-center hover:bg-azul-100 hover:text-azul-600 rounded transition-all duration-200 truncate"><div className={`flex min-w-10 ${!expanded && "justify-center"}`}><ChartSpline/></div><div className={`${expanded? "flex-grow" : "overflow-hidden transition-all w-0"}`}>Relatórios</div></li></Link>
                     
-                    <Link to = "producao"><li className="cursor-pointer h-full flex p-2 items-center hover:bg-azul-100 hover:text-azul-600 rounded transition-all duration-200 truncate"><div className={`flex min-w-10 ${!expanded && "justify-center"}`}><ChefHat/></div><div className={`${expanded? "flex-grow" : "overflow-hidden transition-all w-0"}`}>Modo Produção</div></li></Link>
+                    <Link to = "/producao"><li className="cursor-pointer h-full flex p-2 items-center hover:bg-azul-100 hover:text-azul-600 rounded transition-all duration-200 truncate"><div className={`flex min-w-10 ${!expanded && "justify-center"}`}><ChefHat/></div><div className={`${expanded? "flex-grow" : "overflow-hidden transition-all w-0"}`}>Modo Produção</div></li></Link>
                 
                 </ul>
                 <ul className="flex flex-col flex-1 justify-around">
-                    <Link to = "ajuda"><li className="cursor-pointer h-full flex p-2 items-center hover:bg-azul-100 hover:text-azul-600 rounded transition-all duration-200 truncate"><div className={`flex min-w-10 ${!expanded && "justify-center"}`}><Info/></div><div className={`${expanded? "flex-grow" : "overflow-hidden transition-all w-0"}`}>Ajuda</div></li></Link>
+                    <Link to = "/ajuda"><li className="cursor-pointer h-full flex p-2 items-center hover:bg-azul-100 hover:text-azul-600 rounded transition-all duration-200 truncate"><div className={`flex min-w-10 ${!expanded && "justify-center"}`}><Info/></div><div className={`${expanded? "flex-grow" : "overflow-hidden transition-all w-0"}`}>Ajuda</div></li></Link>
                     
-                    <Link to = "ajustes"><li className="cursor-pointer h-full flex p-2 items-center hover:bg-azul-100 hover:text-azul-600 rounded transition-all duration-200 truncate"><div className={`flex min-w-10 ${!expanded && "justify-center"}`}><Settings /></div><div className={`${expanded? "flex-grow" : "overflow-hidden transition-all duration-300 w-0"}`}>Configurações</div></li></Link>
+                    <Link to = "/ajustes"><li className="cursor-pointer h-full flex p-2 items-center hover:bg-azul-100 hover:text-azul-600 rounded transition-all duration-200 truncate"><div className={`flex min-w-10 ${!expanded && "justify-center"}`}><Settings /></div><div className={`${expanded? "flex-grow" : "overflow-hidden transition-all duration-300 w-0"}`}>Configurações</div></li></Link>
                     
 
                 </ul>

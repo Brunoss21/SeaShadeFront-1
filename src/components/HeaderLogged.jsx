@@ -6,7 +6,7 @@ const HeaderLogged = ({ hasUndo, link }) => {
         <header className="flex flex-col gap-7 mb-7">
             <div className={`flex ${ hasUndo ? "justify-between" : "justify-end"}`}>
             { hasUndo && (<button><Link to = {link}><Undo2 size="30"/></Link></button>)}
-            <Link to = "/novo-pedido" className ="hover: bg-orange-500 text-slate-50 font-medium rounded px-3 py-0.5 shadow-sm flex gap-2 items-center justify-center"><PenLine size="16" strokeWidth={3}/>Novo Pedido</Link>
+            <Link to = "/novo-pedido" className ="hover: bg-orange-500 text-slate-50 font-medium rounded px-3 py-1 shadow-sm flex gap-2 items-center justify-center"><PenLine size="16" strokeWidth={3}/>Novo Pedido</Link>
             </div>
             
         </header>                

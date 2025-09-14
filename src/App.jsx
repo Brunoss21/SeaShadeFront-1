@@ -8,6 +8,7 @@ import Inicio from './pages/Inicio';
 import Comandas from './pages/Comandas';
 import TodosPedidos from './pages/TodosPedidos';
 import CriarComanda from './pages/CriarComanda';
+import Estoque from './pages/Estoque'
 const App = () => {
   return (
     
@@ -20,6 +21,7 @@ const App = () => {
         <Route path='/cardapio' element={<Cardapio />} />
         <Route path='/inicio' element={<Inicio />} />
         <Route path='/comandas' element={<Comandas />} />
+        <Route path='/estoque' element={<Estoque />} />
 
         {/* essa rota existe apenas para teste */}
         <Route path='/todos-os-pedidos' element={<TodosPedidos />}/>
