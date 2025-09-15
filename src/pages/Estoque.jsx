@@ -48,8 +48,8 @@ const Estoque = () => {
         <h1 className="text-2xl md:text-3xl font-bold mb-5">Estoque</h1>
         <div className=" flex items-center justify-between">
           <div className="flex gap-1 h-full">
-          <h2 className="bg-slate-100 rounded-t px-3 py-1 p">Lista de produtos</h2>
-          <h2 className="bg-slate-100 rounded-t px-2 py-1 mb-1">Histórico</h2>
+          <h2 className="bg-slate-100 rounded-t px-3 flex items-center pb-1 font-semibold text-indigo-500 cursor-pointer">Lista de produtos</h2>
+          <h2 className="bg-slate-100 rounded-t px-2 mb-1 flex items-center font-semibold text-indigo-500 cursor-pointer">Histórico</h2>
           </div>
           <button
             onClick={() => setShowModal(true)}
