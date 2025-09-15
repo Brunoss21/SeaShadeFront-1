@@ -43,7 +43,7 @@ const quantidade = 150;
                             <textarea className="inset-shadow-sm focus:ring focus:outline-none focus:border-indigo-600 bg-white py-4 lg:py-3 px-5 rounded border border-slate-300 text-slate-900 w-full" rows="4" cols="50" placeholder="Observações (opcional)"></textarea>
                          </label>
                                 {/* esse link existe apenas para teste */}
-                            <Link className="cursor-pointer shadow-sm bg-indigo-600 text-slate-50 font-medium rounded py-2 text-center" to="/comanda1">Confirmar</Link>
+                            <Link className="text-lg cursor-pointer shadow-sm bg-indigo-600 text-slate-50 font-medium rounded py-2 text-center" to="/comanda1">Confirmar</Link>
                         </fieldset>
                     </form>
                 </div>

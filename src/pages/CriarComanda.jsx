@@ -1,7 +1,7 @@
 import Sidebar from "../components/Sidebar"
 import HeaderLogged from "../components/HeaderLogged"
 import { Link } from 'react-router-dom';
-import { Search,Clock, CircleQuestionMark,Check, X } from 'lucide-react'
+import { Search,Clock, CircleQuestionMark,Check, Ban } from 'lucide-react'
 const CriarComanda = () => {
 
      return(
@@ -82,8 +82,8 @@ const CriarComanda = () => {
                         <p className="font-semibold">R$ 00,00</p>
                         </div>
                         <div className="flex gap-2">
-                            <button className="flex-1 bg-slate-600 rounded text-slate-50 text-lg font-medium py-2 flex gap-1 justify-center items-center">Cancelar</button>
-                            <button className="flex-2 bg-green-600 rounded text-slate-50 text-lg font-medium py-2 flex gap-1 justify-center items-center">Finalizar atendimento <Check size="18" strokeWidth={3}/></button>
+                            <button className="flex-1 bg-slate-600 rounded text-slate-50 text-lg font-medium py-2 flex gap-2 justify-center items-center"><Ban size={15} strokeWidth={3}/>Cancelar </button>
+                            <button className="flex-2 bg-indigo-600 rounded text-slate-50 text-lg font-medium py-2 flex gap-2 justify-center items-center"> <Check size="17" strokeWidth={3}/> Finalizar atendimento </button>
                         </div>
                     </div>
                    </div> 
