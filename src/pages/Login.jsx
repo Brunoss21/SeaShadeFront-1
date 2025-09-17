@@ -38,15 +38,15 @@ const handleLogin = async (e) => {
       <Header />
         <main className="m-3 flex-1 flex flex-col items-center gap-5">
           <div className="flex flex-col items-center">
-        <h1 className="  flex-wrap flex items-center text-4xl font-medium px-4 py-4 text-indigo-950 gap-3"><PiUserCircle size="35" strokeWidth={4}/>Entre na sua conta</h1>
-       <h2 className="text-indigo-800 text-center flex-wrap">Novo por aqui? <Link to="/cadastro"><span className="border-b hover:text-indigo-600">Cadastre-se</span></Link></h2>
+        <h1 className="  flex-wrap flex items-center text-4xl font-medium px-4 py-4 text-blue-950 gap-3"><PiUserCircle size="35" strokeWidth={4}/>Entre na sua conta</h1>
+       <h2 className="text-blue-800 text-center flex-wrap text-lg">Novo por aqui? <Link to="/cadastro"><span className="border-b hover:text-blue-600">Cadastre-se</span></Link></h2>
         </div>
         <form className="w-full md: md:max-w-md max-w-sm mx-auto" onSubmit={handleLogin}>
           <fieldset className="w-full flex flex-col gap-3">
             <label className="text-xl flex flex-col gap-2">
                E-mail: <br/>
               <input 
-              className="inset-shadow-xs focus:ring focus:outline-none focus:border-indigo-600 bg-white py-4 lg:py-3 px-5 rounded border border-slate-300 text-slate-900 w-full"
+              className="inset-shadow-xs focus:ring focus:outline-none focus:border-blue-600 bg-white py-4 lg:py-3 px-5 rounded border border-slate-300 text-slate-900 w-full"
               value = {email}
               type='email'
               placeholder='ex: email@hotmail.com'
@@ -57,7 +57,7 @@ const handleLogin = async (e) => {
             <label className="text-xl flex flex-col gap-2">
               Senha:
               <input 
-              className="inset-shadow-xs focus:ring focus:outline-none focus:border-indigo-600 bg-white py-4 lg:py-3 px-5 rounded border border-slate-300 text-slate-900 w-full"
+              className="inset-shadow-xs focus:ring focus:outline-none focus:border-blue-600 bg-white py-4 lg:py-3 px-5 rounded border border-slate-300 text-slate-900 w-full"
               value={pass}
               type='password'
               placeholder='••••••••••••'

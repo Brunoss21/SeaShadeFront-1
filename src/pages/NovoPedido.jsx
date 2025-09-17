@@ -19,7 +19,7 @@ const quantidade = 150;
                         <fieldset className="flex flex-2 flex-col gap-3 my-5">
                          <label>
                             <input
-                            className="inset-shadow-sm focus:ring focus:outline-none focus:border-indigo-600 bg-white py-4 lg:py-3 px-5 rounded border border-slate-300 text-slate-900 w-full" 
+                            className="inset-shadow-sm focus:ring focus:outline-none focus:border-blue-600 bg-white py-4 lg:py-3 px-5 rounded border border-slate-300 text-slate-900 w-full" 
                             type="text" 
                             name=""
                             placeholder="Atendente"/>
@@ -27,7 +27,7 @@ const quantidade = 150;
 
                          <label>
                             <input
-                            className="inset-shadow-sm focus:ring focus:outline-none focus:border-indigo-600 bg-white py-4 lg:py-3 px-5 rounded border border-slate-300 text-slate-900 w-full" 
+                            className="inset-shadow-sm focus:ring focus:outline-none focus:border-blue-600 bg-white py-4 lg:py-3 px-5 rounded border border-slate-300 text-slate-900 w-full" 
                             type="text" 
                             name=""
                             placeholder="Número do guarda-sol"/>
@@ -40,10 +40,10 @@ const quantidade = 150;
                          </label>
 
                          <label>
-                            <textarea className="inset-shadow-sm focus:ring focus:outline-none focus:border-indigo-600 bg-white py-4 lg:py-3 px-5 rounded border border-slate-300 text-slate-900 w-full" rows="4" cols="50" placeholder="Observações (opcional)"></textarea>
+                            <textarea className="inset-shadow-sm focus:ring focus:outline-none focus:border-blue-600 bg-white py-4 lg:py-3 px-5 rounded border border-slate-300 text-slate-900 w-full" rows="4" cols="50" placeholder="Observações (opcional)"></textarea>
                          </label>
                                 {/* esse link existe apenas para teste */}
-                            <Link className="text-lg cursor-pointer shadow-sm bg-indigo-600 text-slate-50 font-medium rounded py-2 text-center" to="/comanda1">Confirmar</Link>
+                            <Link className="text-lg cursor-pointer shadow-sm bg-blue-600 text-slate-50 font-medium rounded py-2 text-center" to="/comanda1">Confirmar</Link>
                         </fieldset>
                     </form>
                 </div>

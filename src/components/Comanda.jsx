@@ -1,4 +1,4 @@
-import { Clock, ZoomIn, ThumbsUp } from 'lucide-react';
+import { Clock, ZoomIn, ClipboardPenLine } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -14,9 +14,9 @@ const Comanda = ({ numero, mesa, status, itens}) => {
                                 <p>Mesa 1</p>
         
                             </div>
-                            <div className={`text-center py-1 px-2 ${isPreparando? "bg-azul-500" : "bg-orange-400"} `}>
+                            <div className={`text-center py-1 px-2 ${isPreparando? "bg-sky-500" : "bg-orange-400"} `}>
                             <p className="text-slate-50 font-medium flex items-center justify-center gap-2 text-sm md:text-base">
-                            {isPreparando ? (<>Atendimento em aberto</>) : <><Clock size="16" strokeWidth={3} />Aguardando pedido</>}
+                            {isPreparando ? (<><ClipboardPenLine size={18}/>Atendimento em aberto</>) : <><Clock size={16} strokeWidth={3} />Aguardando pedido</>}
                             </p>                            </div>
                             <div className="flex font-semibold bg-slate-200 text-center py-1">
                                     <p className="flex-1">Qt.</p>

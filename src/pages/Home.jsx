@@ -2,6 +2,7 @@ import Header from '../components/Header'
 import decoracaolg from "../assets/decoracaolg2.webp";
 import decoracaosm from "../assets/decoracaosm2.webp";
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer'
 
 const Home = () => {
 
@@ -72,9 +73,9 @@ const Home = () => {
     </section>
 
     {/* Footer */}
-     <div className="text-white text-center bg-slate-900">
-      Footer
-    </div>
+     <div>
+      <Footer/>
+     </div>
     </div>
     
   )

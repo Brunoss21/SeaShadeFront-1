@@ -26,18 +26,18 @@ const CriarComanda = () => {
                            <div className="relative w-full">
                                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
                                 <input
-                                    className="inset-shadow-sm focus:ring focus:outline-none focus:border-indigo-600 bg-white py-4 lg:py-3 pl-10 pr-5 rounded border border-slate-300 text-slate-900 w-full"
+                                    className="inset-shadow-sm focus:ring focus:outline-none focus:border-blue-600 bg-white py-4 lg:py-3 pl-10 pr-5 rounded border border-slate-300 text-slate-900 w-full"
                                     type="search"
                                     placeholder="Buscar"/>
                             </div>
                          </label>
                          <label>
-                            <textarea className="inset-shadow-sm focus:ring focus:outline-none focus:border-indigo-600 bg-white py-4 lg:py-3 px-4 rounded border border-slate-300 text-slate-900 w-full" rows="4" cols="50" placeholder="Observações (opcional)"></textarea>
+                            <textarea className="inset-shadow-sm focus:ring focus:outline-none focus:border-blue-600 bg-white py-4 lg:py-3 px-4 rounded border border-slate-300 text-slate-900 w-full" rows="4" cols="50" placeholder="Observações (opcional)"></textarea>
                          </label>
                                 {/* esse link existe apenas para teste */}
                                 <div className="flex justify-between gap-2">
                             <Link className="text-lg cursor-pointer shadow-sm bg-slate-600 text-slate-50 font-medium rounded py-2 text-center flex-2" to="/comanda1">Selecionar pelo cardápio</Link>
-                            <Link className="text-lg cursor-pointer shadow-sm bg-indigo-600 text-slate-50 font-medium rounded py-2 text-center flex-1" to="/comanda1">Adicionar</Link>
+                            <Link className="text-lg cursor-pointer shadow-sm bg-blue-600 text-slate-50 font-medium rounded py-2 text-center flex-1" to="/comanda1">Adicionar</Link>
                             </div>
                         </fieldset>
                     </form>
@@ -83,7 +83,7 @@ const CriarComanda = () => {
                         </div>
                         <div className="flex gap-2">
                             <button className="flex-1 bg-slate-600 rounded text-slate-50 text-lg font-medium py-2 flex gap-2 justify-center items-center"><Ban size={15} strokeWidth={3}/>Cancelar </button>
-                            <button className="flex-2 bg-indigo-600 rounded text-slate-50 text-lg font-medium py-2 flex gap-2 justify-center items-center"> <Check size="17" strokeWidth={3}/> Finalizar atendimento </button>
+                            <button className="flex-2 bg-blue-600 rounded text-slate-50 text-lg font-medium py-2 flex gap-2 justify-center items-center"> <Check size="17" strokeWidth={3}/> Finalizar atendimento </button>
                         </div>
                     </div>
                    </div> 

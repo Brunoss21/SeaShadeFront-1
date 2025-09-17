@@ -39,6 +39,8 @@ const Estoque = () => {
   ];
 
   const [showModal, setShowModal] = useState(false);
+  const [showTable, setShowTable] = useState(true);
+  const [showTable2, setShowTable2] = useState(false);
 
   return (
     <div className="text-slate-600 h-screen flex">
@@ -48,16 +50,17 @@ const Estoque = () => {
         <h1 className="text-2xl md:text-3xl font-bold mb-5">Estoque</h1>
         <div className=" flex items-center justify-between">
           <div className="flex gap-1 h-full">
-          <h2 className="bg-slate-100 rounded-t px-3 flex items-center pb-1 font-semibold text-indigo-500 cursor-pointer">Lista de produtos</h2>
-          <h2 className="bg-slate-100 rounded-t px-2 mb-1 flex items-center font-semibold text-indigo-500 cursor-pointer">Histórico</h2>
+          <button className={`rounded-t px-3 flex items-center pb-1 font-semibold  cursor-pointer mb-1 text-slate-800 ${showTable? " bg-slate-200": "bg-slate-100"}`} onClick={() => {if (!showTable) {setShowTable(true); setShowTable2(false)}}}>Lista de produtos</button>
+          <button className={`rounded-t px-2 flex items-center font-semibold cursor-pointer mb-1 text-slate-800 ${showTable2? " bg-slate-200" : "bg-slate-100 "}`} onClick={() => {if (!showTable2)setShowTable(false); setShowTable2(true)}}>Histórico</button>
           </div>
+
           <button
             onClick={() => setShowModal(true)}
-            className="shadow-sm rounded py-2 px-3 flex gap-1 bg-indigo-500 text-slate-50 cursor-pointer transition-all duration-300 mb-1"
+            className="shadow-sm rounded py-2 px-3 flex gap-1 bg-blue-600 text-slate-50 cursor-pointer transition-all duration-300 mb-1"
           ><Plus />
-            Adicionar Item
-            
+          <span className="hidden lg:block">Adicionar Item</span> 
           </button>
+
           <Modal isVisible={showModal} onClose={() => setShowModal(false)}>
             <div className="p-6">
               <h3 className="text-2xl font-semibold text-slate-700 mb-7">Adicionar item ao estoque</h3>
@@ -83,17 +86,18 @@ const Estoque = () => {
             </div>
           </Modal>
         </div>
-        <main className="flex-1 overflow-visible">
+        <main className="flex-1">
           <div className="w-full overflow-x-auto overflow-y-auto h-[780px]">
+            {showTable? 
             <table className="min-w-full rounded-lg table-fixed border-collapse">
-              <thead className="bg-slate-100 sticky top-0 z-20">
+              <thead className="bg-slate-200 sticky top-0 z-20">
                 <tr>
-                  <th className="px-4 py-2 text-left text-slate-700 font-semibold w-[15%]">Código SKU</th>
-                  <th className="px-4 py-2 text-left text-slate-700 font-semibold w-[15%]">Categoria</th>
-                  <th className="px-4 py-2 text-left text-gray-700 font-semibold w-[25%]">Descrição</th>
-                  <th className="px-4 py-2 text-left text-slate-700 font-semibold w-[15%]">Total unitário</th>
-                  <th className="px-4 py-2 text-left text-slate-700 font-semibold w-[15%]">Total</th>
-                  <th className="px-4 py-2 text-left text-slate-700 font-semibold w-[15%]">Quantidade em estoque</th>
+                  <th className="px-4 py-2 text-left text-slate-800 font-semibold w-[15%]">Código do produto</th>
+                  <th className="px-4 py-2 text-left text-slate-800 font-semibold w-[15%]">Categoria</th>
+                  <th className="px-4 py-2 text-left text-slate-800 font-semibold w-[25%]">Descrição</th>
+                  <th className="px-4 py-2 text-left text-slate-800 font-semibold w-[15%]">Total unitário</th>
+                  <th className="px-4 py-2 text-left text-slate-800 font-semibold w-[15%]">Total</th>
+                  <th className="px-4 py-2 text-left text-slate-800 font-semibold w-[15%]">Quantidade em estoque</th>
                   <th className="px-4 py-2 text-center w-[5%]"></th>
                   <th className="px-4 py-2 text-center w-[5%]"></th>
                 </tr>
@@ -113,7 +117,7 @@ const Estoque = () => {
                       </button>
                     </td>
                     <td className="text-center px-1 lg:px-0">
-                      <button className="cursor-pointer bg-indigo-500 text-slate-50 rounded p-1">
+                      <button className="cursor-pointer bg-blue-600 text-slate-50 rounded p-1">
                         <Plus size={16} />
                       </button>
                     </td>
@@ -121,6 +125,38 @@ const Estoque = () => {
                 ))}
               </tbody>
             </table>
+            : <table className="min-w-full rounded-lg table-fixed border-collapse">
+              <thead className="bg-slate-200 sticky top-0 z-20">
+                <tr>
+                  <th className="px-4 py-2 text-left text-slate-800 font-semibold w-[10%]">Movimentação</th>
+                  <th className="px-4 py-2 text-left text-slate-800 font-semibold w-[15%]">Código do produto</th>
+                  <th className="px-4 py-2 text-left text-slate-800 font-semibold w-[12%]">Descrição</th>
+                  <th className="px-4 py-2 text-left text-slate-800 font-semibold w-[13%]">Tipo de movimento</th>
+                  <th className="px-4 py-2 text-left text-slate-800 font-semibold w-[10%]">Quantidade</th>
+                  <th className="px-4 py-2 text-left text-slate-800 font-semibold w-[10%]">Data</th>
+                  <th className="px-4 py-2 text-left text-slate-800 font-semibold w-[10%]">Horário</th>
+                  <th className="px-4 py-2 text-left text-slate-800 font-semibold w-[10%]">Motivo</th>
+                  <th className="px-4 py-2 text-left text-slate-800 font-semibold w-[10%]">Referência</th>
+                  
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-200">
+                {dadosEstoque.map((item, index) => (
+                  <tr key={index} className="hover:bg-slate-50">
+                    <td className="px-4 py-2">#432356</td>
+                    <td className="px-4 py-2">{item.sku}</td>
+                    <td className="px-4 py-2">{item.desc}</td>
+                    <td className="px-4 py-2">Entrada</td>
+                    <td className="px-4 py-2">10</td>
+                    <td className="px-4 py-2">17/09/2025</td>
+                    <td className="px-4 py-2">12:43</td>
+                    <td className="px-4 py-2">Venda</td>
+                    <td className="px-4 py-2">Pedido #8796869</td>
+                    <td className="text-center px-1 lg:px-0"></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>}
           </div>
         </main>
       </div>

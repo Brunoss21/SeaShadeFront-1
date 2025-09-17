@@ -1,4 +1,4 @@
-import { Check, ZoomIn } from 'lucide-react';
+import { Check, ZoomIn, } from 'lucide-react';
 
 const ListaFinalizados = () => {
   const dadosComandas = [
@@ -139,18 +139,18 @@ const ListaFinalizados = () => {
           key={comanda.id}
           className="bg-slate-50 border-b border-slate-200"
         >
-          <td className="py-2 text-center">{comanda.id}</td>
+          <td className="py-2 text-center">#{comanda.id}</td>
           <td className="py-2 text-center">{comanda.numeroComanda}</td>
           <td className="py-2 text-center">{comanda.guardaSol}</td>
           <td className="py-2 text-center">
-            <span className="bg-green-300 px-2 mx-2 py-1 font-medium flex justify-center items-center gap-1">
+            <span className="bg-emerald-300 px-2 mx-2 py-1 font-medium flex justify-center items-center gap-1">
               {comanda.status} <Check size="16" />
             </span>
           </td>
           <td className="py-2 text-center">{comanda.data}</td>
           <td className="py-2 text-center">{comanda.horario}</td>
           <td className="py-2 text-center">
-            <ZoomIn className="text-indigo-700 cursor-pointer mx-auto" size="20" />
+            <ZoomIn className="text-blue-700 cursor-pointer mx-auto" size="20" />
           </td>
         </tr>
       ))}
