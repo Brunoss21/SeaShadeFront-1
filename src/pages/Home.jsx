@@ -53,11 +53,14 @@ const Home = () => {
 
     <section id="sobre" className="flex justify-center bg-sky-50 text-slate-700 p-5">
       <div className="max-w-screen-2xl w-full">
-        <h2 className="text-4xl font-bold">Chegamos para facilitar a vida de quem trabalha na praia.</h2>
+        {/* <h2 className="text-4xl font-bold text-center">Chegamos para facilitar a vida de quem trabalha na praia.</h2> */}
 
-        <div className="flex flex-col gap-3 text-lg">
-        
-          {/* <p>
+        <div className="flex gap-3 text-lg font-medium text-orange-500 justify-between">
+        <div className="flex items-center justify-center">Anote pedidos</div>
+        <div className="flex items-center justify-center">Controle seu estoque</div>
+        <div className="flex items-center justify-center">Conecte seus funcionários</div>
+        <div className="flex items-center justify-center">Supervisione em qualquer lugar</div>
+          {/* <p>1
             O <strong>SeaShade</strong> chegou para facilitar a vida de quem trabalha na praia. Com ele, você consegue <strong>organizar pedidos</strong>, <strong>controlar o estoque</strong> e <strong>gerenciar mesas e guarda-sóis</strong> sem complicação. Tudo isso em um só lugar, pensado para que seu dia a dia fique mais tranquilo e você possa focar no que realmente importa: <strong>atender bem seus clientes</strong>.
           </p> 
 

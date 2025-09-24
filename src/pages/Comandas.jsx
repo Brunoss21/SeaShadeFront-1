@@ -15,7 +15,7 @@ const quantidade = 150;
             <HeaderLogged/>
             <main className="flex h-full flex-col lg:flex-row gap-10">
                 <div className="flex flex-col gap-5 w-full">
-                    <h1 className="text-2xl md:text-3xl font-bold">Comandas em Andamento</h1>
+                    <h1 className="text-2xl md:text-3xl font-bold text-blue-600">Comandas em Andamento</h1>
                     <div className="w-full flex gap-5 overflow-x-auto scrollbar-hide">
                         <Comanda />
                         <Comanda />
@@ -31,13 +31,12 @@ const quantidade = 150;
                     <Link to="/comandas/more" className="flex items-center text-blue-700 font-medium">Ver tudo <ChevronsRight size="17" /></Link>
                     </div>
                     <div className="flex flex-col md:flex-row justify-between pt-5 gap-4">
-                    <h2 className="text-2xl md:text-3xl font-bold">Finalizadas</h2>
+                    <h2 className="text-2xl md:text-3xl font-bold text-blue-600">Finalizadas</h2>
                     <div className="flex-wrap flex gap-2 text-blue-700 items-center justify-between bg-blue-100 p-2 rounded-lg">
                     <p className="pl-2 flex items-center justify-center gap-2 font-medium w-full md:w-auto"><Funnel size="15"/>Filtros</p>
                     <input type="text" className="rounded-full px-4 max-w-27 py-1 bg-slate-50 w-full md:w-auto" placeholder="ID"/>
                     <input type="text" className="rounded-full px-4 max-w-27 py-1 bg-slate-50 w-full md:w-auto" placeholder="Status"/>
                     <input type="date" className="rounded-full px-4 max-w-41 py-1 bg-slate-50 w-full md:w-auto" placeholder="Data"/>
-                    <input type="time" className="rounded-full px-4 py-1 bg-slate-50" placeholder="Hora"/>
                     <button className="flex bg-blue-700 text-slate-50 rounded-full py-1 px-6 w-full md:max-w-25 font-medium justify-center">Aplicar</button>
                     </div>
                     </div>

@@ -1,7 +1,7 @@
 import Sidebar from "../components/Sidebar"
 import HeaderLogged from "../components/HeaderLogged"
 import Comanda from '../components/Comanda'
-import {Clock, ThumbsUp} from 'lucide-react'
+import {Clock,  ClipboardPenLine} from 'lucide-react'
 const TodosPedidos = () => {
     return (
         <div className="text-slate-600 flex h-screen">
@@ -12,12 +12,9 @@ const TodosPedidos = () => {
                 <HeaderLogged hasUndo link={'/comandas'}/>
             
             <main className="flex h-full flex-col gap-5">
-             <div>
-                 <h1 className="text-2xl md:text-3xl font-bold">Comandas em Andamento</h1>
-             </div>
 
              {/* fazer conteudo pós h2 retratil*/}
-             <h2 className="text-xl md:text-2xl font-bold flex gap-2 items-center"><Clock size="20" strokeWidth={3}/> Aguardando pedido</h2>
+             <h2 className="text-xl md:text-2xl font-bold flex gap-2 text-orange-600 items-center"><Clock size="20" strokeWidth={3}/> Aguardando pedido</h2>
              <div className="w-full flex gap-8 flex-wrap">
                 <Comanda/>
                 <Comanda/>
@@ -27,7 +24,7 @@ const TodosPedidos = () => {
              </div>
              
               {/* fazer conteudo pós h2 retratil*/}
-             <h2 className="text-xl md:text-2xl font-bold flex gap-2 items-center">Atendimento em Aberto</h2>
+             <h2 className="text-xl md:text-2xl font-bold flex gap-2 text-blue-600 items-center mt-10">< ClipboardPenLine size="20" strokeWidth={3}/>Atendimento em aberto</h2>
              <div className="w-full flex gap-8 flex-wrap">
              <Comanda/>
                 <Comanda/>

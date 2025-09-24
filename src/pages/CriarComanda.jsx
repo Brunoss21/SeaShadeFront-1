@@ -5,7 +5,7 @@ import { Search,Clock, CircleQuestionMark,Check, Ban } from 'lucide-react'
 const CriarComanda = () => {
 
      return(
-        <div className="text-slate-600 flex h-screen">
+        <div className="text-slate-600 flex h-screen ">
             <Sidebar/>
             <div className="flex flex-col w-full pl-20 py-4 pr-4 md:pl-25 md:pr-9">
             <HeaderLogged hasUndo link="/novo-pedido"></HeaderLogged>

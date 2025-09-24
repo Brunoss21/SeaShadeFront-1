@@ -7,7 +7,7 @@ const Comanda = ({ numero, mesa, status, itens}) => {
     const [isPreparando, setIsPreparando] = useState(true);
 
     return (
-       <Link to="/comanda1"> <div className="bg-slate-50 rounded-lg min-w-49 md:min-w-60 shadow cursor-pointer">
+       <Link to="/comanda1"> <div className="bg-slate-50 rounded-lg min-w-49 md:min-w-60 shadow-lg cursor-pointer">
                             <div className="bg-slate-800 px-3 py-3 rounded-t-lg flex justify-between text-slate-300 text-sm items-center">
                                  
                                  <p className="font-medium text-center text-xl text-slate-50">#000</p>
