@@ -21,7 +21,6 @@ const Header = () => {
           <ul className="flex items-center gap-14 text-slate-50">
             <li><Link to="/" className="line">Início</Link></li>
             <li><Link to="/sobre" className="line">Sobre</Link></li>
-            <li><Link to="/planos" className="line">Planos</Link></li>
             <li><Link to="/contato" className="line">Contato</Link></li>
           </ul>
         </nav>
@@ -62,13 +61,6 @@ const Header = () => {
              <div className="gap-2 flex hover:text-slate-300 transition-color duration-300">
               <div className="flex justify-center items-center w-8"><NotepadText size={17} /></div>
               Sobre</div>
-            </Link>
-          </li>
-          <li>
-            <Link to="/planos" className="border-b flex items-center border-azul-300 pb-2.5" onClick={() => setIsMenuOpen(false)}>
-             <div className="gap-2 flex hover:text-slate-300 transition-color duration-300">
-              <div className="flex justify-center items-center w-8"><Package size={17} /></div>
-              Planos</div>
             </Link>
           </li>
           <li>

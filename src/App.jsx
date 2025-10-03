@@ -16,6 +16,7 @@ import Config from './pages/Config'
 import ContaConfig from './pages/ContaConfig'
 import AlterarSenha from './pages/AlterarSenha'
 import Sobre from './pages/Sobre'
+import Contato from './pages/Contato'
 const App = () => {
   return (
     
@@ -36,6 +37,7 @@ const App = () => {
         <Route path='/conta' element={<ContaConfig />} />
         <Route path='/conta/mudar-senha' element={<AlterarSenha />} />
         <Route path='/sobre' element={<Sobre />} />
+        <Route path='/contato' element={<Contato />} />
         {/* essa rota existe apenas para teste */}
         <Route path='/comandas/more' element={<ComandasMore />}/>
         {/* essa rota existe apenas para teste */}

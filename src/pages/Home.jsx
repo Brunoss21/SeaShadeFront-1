@@ -3,6 +3,7 @@ import decoracaolg from "../assets/decoracaolg2.webp";
 import decoracaosm from "../assets/decoracaosm2.webp";
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer'
+import { NotebookPen, Boxes, Users, Cloud, Sparkles } from 'lucide-react';
 
 const Home = () => {
 
@@ -51,37 +52,166 @@ const Home = () => {
       />
     </div>
 
-    <section id="sobre" className="flex justify-center bg-sky-50 text-slate-700 p-5">
-      <div className="max-w-screen-2xl w-full">
-        {/* <h2 className="text-4xl font-bold text-center">Chegamos para facilitar a vida de quem trabalha na praia.</h2> */}
+   <section className="py-16 px-6 bg-slate-50 text-slate-700">
+  <div className="max-w-screen-xl mx-auto w-full text-center">
+    
+    {/* Título e Subtítulo da Seção */}
+    <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-4">
+      Chegamos para facilitar a vida de quem trabalha na praia
+    </h2>
+    <p className="text-lg text-slate-600 max-w-3xl mx-auto mb-12">
+      Deixe a complexidade de lado. Nosso sistema oferece as ferramentas certas para você.
+    </p>
 
-        <div className="flex gap-3 text-lg font-medium text-orange-500 justify-between">
-        <div className="flex items-center justify-center">Anote pedidos</div>
-        <div className="flex items-center justify-center">Controle seu estoque</div>
-        <div className="flex items-center justify-center">Conecte seus funcionários</div>
-        <div className="flex items-center justify-center">Supervisione em qualquer lugar</div>
-          {/* <p>1
-            O <strong>SeaShade</strong> chegou para facilitar a vida de quem trabalha na praia. Com ele, você consegue <strong>organizar pedidos</strong>, <strong>controlar o estoque</strong> e <strong>gerenciar mesas e guarda-sóis</strong> sem complicação. Tudo isso em um só lugar, pensado para que seu dia a dia fique mais tranquilo e você possa focar no que realmente importa: <strong>atender bem seus clientes</strong>.
-          </p> 
+    {/* Grade de Funcionalidades */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
 
-          <p>
-            Você também tem acesso a <strong>informações importantes</strong> sobre sua barraca, ajudando a tomar <strong>decisões inteligentes</strong> e deixar tudo sempre em ordem. Seja você dono de um comércio pequeno ou de uma operação maior, a plataforma se adapta ao seu ritmo e <strong>facilita sua rotina</strong>.
-          </p>
-
-          <p>
-            Experimente o <strong>SeaShade</strong> e descubra como é <strong>simples</strong> gerenciar seu quiosque!
-          </p>               */}
-        </div>  
+      {/* Funcionalidade 1: Anotar Pedidos */}
+      <div className="flex flex-col items-center p-4">
+        <div className="bg-blue-100 p-4 rounded-full mb-4">
+          <NotebookPen className="h-10 w-10 text-blue-600" />
+        </div>
+        <h3 className="text-xl font-bold text-slate-800 mb-2">Anote Pedidos</h3>
+        <p className="text-slate-600 leading-relaxed">
+          Registre pedidos de forma rápida e digital, eliminando o papel e a caneta.
+        </p>
       </div>
-    </section>
 
+      {/* Funcionalidade 2: Controle de Estoque */}
+      <div className="flex flex-col items-center p-4">
+        <div className="bg-blue-100 p-4 rounded-full mb-4">
+          <Boxes className="h-10 w-10 text-blue-600" />
+        </div>
+        <h3 className="text-xl font-bold text-slate-800 mb-2">Controle seu Estoque</h3>
+        <p className="text-slate-600 leading-relaxed">
+          Saiba em tempo real quais produtos estão acabando e evite perdas de vendas.
+        </p>
+      </div>
+
+      {/* Funcionalidade 3: Conectar Equipe */}
+      <div className="flex flex-col items-center p-4">
+        <div className="bg-blue-100 p-4 rounded-full mb-4">
+          <Users className="h-10 w-10 text-blue-600" />
+        </div>
+        <h3 className="text-xl font-bold text-slate-800 mb-2">Conecte sua Equipe</h3>
+        <p className="text-slate-600 leading-relaxed">
+          Sua equipe trabalha em sintonia, da cozinha ao atendimento na areia.
+        </p>
+      </div>
+
+      {/* Funcionalidade 4: Supervisão Remota */}
+      <div className="flex flex-col items-center p-4">
+        <div className="bg-blue-100 p-4 rounded-full mb-4">
+          <Cloud className="h-10 w-10 text-blue-600" />
+        </div>
+        <h3 className="text-xl font-bold text-slate-800 mb-2">Supervisione de Longe</h3>
+        <p className="text-slate-600 leading-relaxed">
+          Acesse relatórios e monitore seu negócio de qualquer celular ou computador.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section className="py-16 px-6  bg-blue-950">
+  <div className="max-w-screen-xl mx-auto w-full">
+    <div className="text-center">
+      <h2 className="text-3xl md:text-4xl font-bold text-white mb-16">
+        Comece a usar em 3 passos simples
+      </h2>
+    </div>
+
+    {/* --- Passo 1 --- */}
+    <div className="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-16 py-10">
+      <div className="lg:w-1/2 text-center lg:text-left">
+        <p className="text-sm font-bold text-sky-400 tracking-wider mb-2">PASSO 01</p>
+        <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+          Configure seu Cardápio
+        </h3>
+        <p className="text-slate-300 text-lg leading-relaxed">
+          O primeiro passo é o mais rápido. Cadastre seus produtos, bebidas, porções e o que mais você oferecer. Adicione preços e descrições para que sua equipe tenha tudo na mão na hora de anotar o pedido.
+        </p>
+      </div>
+      <div className="lg:w-1/2 flex justify-center lg:justify-end">
+        <div className="w-full max-w-md h-64 bg-white rounded-lg shadow-xl flex items-center justify-center">
+          {/* Sua imagem aqui */}
+        </div>
+      </div>
+    </div>
+
+    {/* --- Passo 2 --- */}
+    <div className="flex flex-col lg:flex-row-reverse items-center justify-center gap-10 lg:gap-16 py-10">
+      <div className="lg:w-1/2 text-center lg:text-left">
+        <p className="text-sm font-bold text-sky-400 tracking-wider mb-2">PASSO 02</p>
+        <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+          Receba e Gerencie Pedidos
+        </h3>
+        <p className="text-slate-300 text-lg leading-relaxed">
+          Com o cardápio pronto, sua equipe já pode usar o sistema em um celular ou tablet. Os pedidos são enviados em tempo real para a cozinha ou bar, eliminando erros de comunicação e agilizando a entrega.
+        </p>
+      </div>
+      <div className="lg:w-1/2 flex justify-center lg:justify-start">
+        <div className="w-full max-w-md h-64 bg-white rounded-lg shadow-xl flex items-center justify-center">
+          {/* Sua imagem aqui */}
+        </div>
+      </div>
+    </div>
+
+    {/* --- Passo 3 --- */}
+    <div className="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-16 py-10">
+      <div className="lg:w-1/2 text-center lg:text-left">
+        <p className="text-sm font-bold text-sky-400 tracking-wider mb-2">PASSO 03</p>
+        <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+          Acompanhe seus Resultados
+        </h3>
+        <p className="text-slate-300 text-lg leading-relaxed">
+          Acesse o painel de controle de qualquer lugar e veja relatórios de vendas, produtos mais vendidos e o desempenho da sua equipe. Use esses dados para tomar decisões e fazer seu negócio crescer.
+        </p>
+      </div>
+      <div className="lg:w-1/2 flex justify-center lg:justify-end">
+        <div className="w-full max-w-md h-64 bg-white rounded-lg shadow-xl flex items-center justify-center">
+          {/* Sua imagem aqui */}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section className="py-16 px-6 bg-slate-50">
+  <div className="max-w-4xl mx-auto">
+    <div className =" p-8 md:p-12 text-center relative overflow-hidden">
+      
+      {/* Ícone de destaque */}
+      <div className="inline-block bg-blue-100 p-3 rounded-full mb-4">
+        <Sparkles className="h-8 w-8 text-orange-400" />
+      </div>
+
+      {/* Título e Subtítulo */}
+      <h2 className="text-3xl md:text-4xl font-bold text-slate-800">
+        Dê o próximo passo para um verão mais tranquilo
+      </h2>
+      <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
+        Deixe a papelada de lado e veja na prática como o SeaShade pode transformar seu negócio.
+      </p>
+
+      {/* Botões de Ação */}
+      <div className="mt-8 flex justify-center items-center gap-4 flex-col sm:flex-row">
+        <a 
+          href="#contato" 
+          className="w-full sm:w-auto inline-block bg-orange-400 text-white font-bold py-3 px-8 rounded-lg hover:bg-orange-500 transition-colors shadow"
+        >
+          Cadastre-se gratuitamente
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
     {/* Footer */}
      <div>
       <Footer/>
      </div>
     </div>
-    
   )
 }
-
 export default Home;

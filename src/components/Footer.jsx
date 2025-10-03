@@ -2,7 +2,7 @@ import darkLogo from '../assets/darklogo.svg';
 
 const Footer = () => {
   return (
-    <footer className="bg-azul-950 text-white py-12">
+    <footer className="bg-sky-950 text-white py-12">
       <div className="container mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
         {/* Logo e descrição */}
         <div className="p-6 rounded-lg flex flex-col items-start">
@@ -30,7 +30,6 @@ const Footer = () => {
           <ul className="text-sm space-y-2">
             <li><a href="#" className="hover:underline transition-colors duration-200">Home</a></li>
             <li><a href="#" className="hover:underline transition-colors duration-200">Sobre</a></li>
-            <li><a href="#" className="hover:underline transition-colors duration-200">Planos</a></li>
             <li><a href="#" className="hover:underline transition-colors duration-200">Contato</a></li>
           </ul>
         </div>
@@ -45,7 +44,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="text-center text-sm mt-10 border-t border-azul-900 pt-6">
+      <div className="text-center text-sm mt-10 border-t border-sky-900 pt-6">
         © {new Date().getFullYear()} SeaShade. Todos os direitos reservados.
       </div>
     </footer>
