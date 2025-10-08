@@ -2,37 +2,56 @@ import Header from '../components/Header';
 import axios from "axios";
 import { useState } from 'react';
 import { PiUserCircle } from "react-icons/pi";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  //const navigate = useNavigate();
+ const navigate = useNavigate();
  const[email, setEmail] = useState('');
  const[pass, setPass] = useState('')
  const [error, setError] = useState('');
+ const [loading, setLoading] = useState(false);
 
 const handleLogin = async (e) => {
+  console.log("Botão clicado! A função handleLogin foi chamada."); // <-- ADICIONE ESTA LINHA
     e.preventDefault();
     setError('');
+    setLoading(true);
+
     if (!email || !pass) {
       setError('Preencha todos os campos');
+      setLoading(false)
       return;
     }
     if (!/\S+@\S+\.\S+/.test(email)) {
       setError('E-mail inválido');
+      setLoading(false)
       return;
     }
     try {
-      const response = await axios.post('http://localhost:8080/auth/login', {
+      const response = await axios.post('http://localhost:8080/api/auth/login', {
         email,
         password: pass,
       });
-      const token = response.data.token;
-      localStorage.setItem('token', token);
-      navigate('/novo-pedido');
-    } catch (err) {
-      setError(err.response?.data?.message || 'Email ou senha inválidos');
-    }
+
+
+      const token = response.data.acessToken;
+
+     if (token) {
+        localStorage.setItem('user', JSON.stringify(response.data)); // Salva o objeto do usuário
+        navigate('/novo-pedido');
+      } else {
+        setError('Token não recebido da API.');
+      }
+
+      } catch (err) {
+        setError(err.response?.data?.message || 'Email ou senha inválidos');
+      } finally {
+        setLoading(false); // Finaliza o loading, tanto em sucesso quanto em erro
+      }
   };
+
+
+
   return (
     <div className="bg-slate-50 min-h-screen flex flex-col gap-1 md:gap-6">
       <Header />
@@ -64,10 +83,23 @@ const handleLogin = async (e) => {
               onChange={e=> setPass(e.target.value)}
               />
             </label>
-            <div className="text-xl flex flex-col gap-1">
-          <button className="flex flex-col bg-orange-500 text-white py-4 lg:py-3 font-medium transition-color duration-300 hover:bg-orange-400 cursor-pointer w-full" type="submit">Entrar</button>
-          <button className=" text-orange-500 py-3 cursor-pointer w-full hover:text-orange-400" type="submit">Esqueci minha senha</button>
-          </div>
+            
+            {/* <-- 2. EXIBINDO A MENSAGEM DE ERRO AQUI --> */}
+            {error && (
+              <p className="text-red-500 text-center bg-red-100 p-2 rounded-md">{error}</p>
+            )}
+
+          <div className="text-xl flex flex-col gap-1">
+              <button 
+                className="flex items-center justify-center bg-orange-500 text-white py-4 lg:py-3 font-medium transition-color duration-300 hover:bg-orange-400 cursor-pointer w-full disabled:bg-orange-300" 
+                type="submit"
+                disabled={loading} // Desabilita o botão durante o loading
+              >
+                {loading ? 'Entrando...' : 'Entrar'}
+              </button>
+              {/* <-- 4. TIPO DO BOTÃO CORRIGIDO --> */}
+              <button className=" text-orange-500 py-3 cursor-pointer w-full hover:text-orange-400" type="button">Esqueci minha senha</button>
+            </div>
           </fieldset>
         </form>
         </main>
