@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
+import ProtectedRoute from './components/ProtectedRoute';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Cadastro from './pages/Cadastro';
@@ -22,10 +23,17 @@ const App = () => {
     
      
       <Routes>
+        {/* Rotas Públicas */}
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
         <Route path='/cadastro' element={<Cadastro />} />
-        <Route path='/novo-pedido' element={<NovoPedido />} />
+        <Route path='/sobre' element={<Sobre />} />
+        <Route path='/contato' element={<Contato />} />
+
+
+
+        {/* Rotas Protegidas */}
+        <Route path='/novo-pedido' element={<ProtectedRoute>  <NovoPedido /> </ProtectedRoute> } />
         <Route path='/cardapio' element={<Cardapio />} />
         <Route path='/comandas' element={<Comandas />} />
         <Route path='/estoque' element={<Estoque />} />
@@ -36,8 +44,6 @@ const App = () => {
         <Route path='/ajustes' element={<Config />} />
         <Route path='/conta' element={<ContaConfig />} />
         <Route path='/conta/mudar-senha' element={<AlterarSenha />} />
-        <Route path='/sobre' element={<Sobre />} />
-        <Route path='/contato' element={<Contato />} />
         {/* essa rota existe apenas para teste */}
         <Route path='/comandas/more' element={<ComandasMore />}/>
         {/* essa rota existe apenas para teste */}

@@ -3,16 +3,20 @@ import axios from "axios";
 import { useState } from 'react';
 import { PiUserCircle } from "react-icons/pi";
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+
 
 const Login = () => {
- const navigate = useNavigate();
- const[email, setEmail] = useState('');
- const[pass, setPass] = useState('')
- const [error, setError] = useState('');
- const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const { login } = useAuth();
+
+  const[email, setEmail] = useState('');
+  const[pass, setPass] = useState('')
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
 const handleLogin = async (e) => {
-  console.log("Botão clicado! A função handleLogin foi chamada."); // <-- ADICIONE ESTA LINHA
+  console.log("Botão clicado! A função handleLogin foi chamada.");
     e.preventDefault();
     setError('');
     setLoading(true);
@@ -34,19 +38,20 @@ const handleLogin = async (e) => {
       });
 
 
-      const token = response.data.acessToken;
-
-     if (token) {
-        localStorage.setItem('user', JSON.stringify(response.data)); // Salva o objeto do usuário
-        navigate('/novo-pedido');
+      const token = response.data.accessToken; 
+      
+      if (token) {
+        login(response.data); 
+              navigate('/novo-pedido');
       } else {
         setError('Token não recebido da API.');
       }
+      
 
       } catch (err) {
         setError(err.response?.data?.message || 'Email ou senha inválidos');
       } finally {
-        setLoading(false); // Finaliza o loading, tanto em sucesso quanto em erro
+        setLoading(false); 
       }
   };
 
