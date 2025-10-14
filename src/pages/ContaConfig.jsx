@@ -71,7 +71,9 @@ const Config = () => {
               </ul>
             </div>
           </div>
+          
         </div>
+        <button className="bg-red-600 text-slate-50 rounded px-5 py-1 m-6 font-medium shadow cursor-pointer">Sair da conta</button>
       </div>
     </div>
   );
