@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { PiUserCircle } from "react-icons/pi";
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import apiClient from '../services/apiClient';
 
 
 const Login = () => {
@@ -31,31 +32,33 @@ const handleLogin = async (e) => {
       setLoading(false)
       return;
     }
+
     try {
-      const response = await axios.post('http://localhost:8080/api/auth/login', {
-        email,
-        password: pass,
-      });
+        const loginResponse = await axios.post('http://localhost:8080/api/auth/login', {
+            email: email,
+            password: pass,
+        });
 
+        localStorage.setItem('user', JSON.stringify(loginResponse.data));
+        
+        const profileResponse = await apiClient.get('/api/users/me');
 
-      const token = response.data.accessToken; 
-      
-      if (token) {
-        login(response.data); 
-              navigate('/novo-pedido');
-      } else {
-        setError('Token não recebido da API.');
-      }
-      
+        const userDataCompleto = {
+            ...profileResponse.data, 
+            accessToken: loginResponse.data.accessToken, 
+            ExpiresIn: loginResponse.data.ExpiresIn
+        };
 
-      } catch (err) {
+        login(userDataCompleto);
+        navigate('/cardapio');
+
+    } catch (err) {
+        localStorage.removeItem('user'); // Limpa em caso de erro
         setError(err.response?.data?.message || 'Email ou senha inválidos');
-      } finally {
-        setLoading(false); 
-      }
+    } finally {
+        setLoading(false);
+    }
   };
-
-
 
   return (
     <div className="bg-slate-50 min-h-screen flex flex-col gap-1 md:gap-6">

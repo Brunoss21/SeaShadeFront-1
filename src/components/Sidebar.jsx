@@ -2,11 +2,19 @@ import { LayoutPanelLeft, NotebookPen, BookOpenText, PackageOpen, ChartSpline, C
 import { useState } from "react";
 import logo from "../assets/darklogo.svg";
 import { Link } from 'react-router-dom';
+import { useAuth } from "../context/AuthContext";
 
 const Sidebar = ({noturno}) => {
 
+    const { user } = useAuth(); 
+   
+    const getInitials = (name) => {
+        if (!name) return '';
+        return name.split(' ').map(n => n[0]).join('').toUpperCase();
+    };
+
     const[expanded, setExpanded] = useState(false);
-// Cores dinâmicas
+    // Cores dinâmicas
     const bgColor = noturno ? "bg-slate-900" : "bg-slate-50";
     const textColor = noturno ? "text-slate-300" : "text-slate-600";
     const borderColor = noturno ? "border-slate-700" : "border-slate-300";
@@ -73,3 +81,5 @@ const Sidebar = ({noturno}) => {
 }
 
 export default Sidebar;
+
+

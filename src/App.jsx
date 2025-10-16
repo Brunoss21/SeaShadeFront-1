@@ -34,9 +34,9 @@ const App = () => {
 
         {/* Rotas Protegidas */}
         <Route path='/novo-pedido' element={<ProtectedRoute>  <NovoPedido /> </ProtectedRoute> } />
-        <Route path='/cardapio' element={<Cardapio />} />
+        <Route path='/cardapio' element={<ProtectedRoute> <Cardapio /> </ProtectedRoute>} />
         <Route path='/comandas' element={<Comandas />} />
-        <Route path='/estoque' element={<Estoque />} />
+        <Route path='/estoque' element={<ProtectedRoute> <Estoque /> </ProtectedRoute>} />
         <Route path='/modo-producao' element={<Producao />} />
         <Route path='/inicio' element={<Inicio />} />
         <Route path='/relatorios' element={<Relatorios />} />
@@ -44,6 +44,7 @@ const App = () => {
         <Route path='/ajustes' element={<Config />} />
         <Route path='/conta' element={<ContaConfig />} />
         <Route path='/conta/mudar-senha' element={<AlterarSenha />} />
+
         {/* essa rota existe apenas para teste */}
         <Route path='/comandas/more' element={<ComandasMore />}/>
         {/* essa rota existe apenas para teste */}
