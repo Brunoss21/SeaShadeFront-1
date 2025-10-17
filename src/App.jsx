@@ -13,7 +13,7 @@ import Producao from './pages/Producao'
 import Inicio from './pages/Inicio'
 import Relatorios from './pages/Relatorios'
 import Ajuda from './pages/Ajuda'
-import Config from './pages/Config'
+import Funcionarios from './pages/funcionarios'
 import ContaConfig from './pages/ContaConfig'
 import AlterarSenha from './pages/AlterarSenha'
 import Sobre from './pages/Sobre'
@@ -41,7 +41,7 @@ const App = () => {
         <Route path='/inicio' element={<Inicio />} />
         <Route path='/relatorios' element={<Relatorios />} />
         <Route path='/ajuda' element={<Ajuda />} />
-        <Route path='/ajustes' element={<Config />} />
+        <Route path='/funcionarios' element={<Funcionarios />} />
         <Route path='/conta' element={<ContaConfig />} />
         <Route path='/conta/mudar-senha' element={<AlterarSenha />} />
 
