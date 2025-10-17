@@ -1,6 +1,6 @@
 import Header from '../components/Header';
 import { Mail, User, MessageSquare } from 'lucide-react'; // Ícones para os campos
-
+import Footer from '../components/Footer'
 const Contato = () => {
   return (
     <div className="bg-slate-50 min-h-screen flex flex-col">
@@ -86,6 +86,7 @@ const Contato = () => {
 
         </div>
       </main>
+      <Footer/>
     </div>
   );
 };

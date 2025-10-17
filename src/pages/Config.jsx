@@ -26,7 +26,7 @@ const Config = () => {
     <div className="text-slate-600 h-screen flex">
       <Sidebar />
       <div className="flex flex-col w-full pl-20 py-4 pr-4 md:pl-25 md:pr-9">
-        <h1 className="text-3xl font-bold mb-5 text-blue-600 mt-15">Configurações - SeaShade</h1>
+        <h1 className="text-3xl font-bold mb-5 text-blue-600 mt-15">Funcionários</h1>
 
         {/* Configurações gerais */}
         {/* <div className="bg-white shadow rounded p-6 mb-6">
@@ -36,7 +36,8 @@ const Config = () => {
 
         {/* Cadastro de funcionários */}
         <div className="bg-white shadow rounded p-6 mb-6">
-          <h2 className="text-2xl font-semibold mb-4">Cadastro de Funcionários</h2>
+          <h2 className="text-2xl font-semibold mb-4">Cadastro
+          </h2>
           <div className="flex flex-col md:flex-row gap-4 mb-4">
             <input
               type="text"
@@ -59,24 +60,25 @@ const Config = () => {
               Adicionar
             </button>
           </div>
-
+            <h2 className="text-2xl font-semibold mb-4">Seus funcionários
+          </h2>
           {/* Lista de funcionários */}
           {funcionarios.length > 0 && (
             <div className="overflow-x-auto">
-              <table className="w-full table-auto border-collapse border border-slate-300">
+              <table className="w-full table-auto border border-slate-200">
                 <thead>
-                  <tr className="bg-slate-100">
-                    <th className="border px-4 py-2 text-left">Nome</th>
-                    <th className="border px-4 py-2 text-left">E-mail</th>
-                    <th className="border px-4 py-2">Ações</th>
+                  <tr className="bg-slate-200">
+                    <th className=" px-4 py-2 text-left">Nome</th>
+                    <th className=" px-4 py-2 text-left">E-mail</th>
+                    <th className=" px-4 py-2">Ações</th>
                   </tr>
                 </thead>
                 <tbody>
                   {funcionarios.map((f, idx) => (
                     <tr key={idx}>
-                      <td className="border px-4 py-2">{f.nome}</td>
-                      <td className="border px-4 py-2">{f.email}</td>
-                      <td className="border px-4 py-2 text-center">
+                      <td className="px-4 py-2">{f.nome}</td>
+                      <td className="px-4 py-2">{f.email}</td>
+                      <td className=" px-4 py-2 text-center">
                         <button
                           onClick={() => removerFuncionario(f.email)}
                           className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"

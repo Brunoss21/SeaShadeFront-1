@@ -1,4 +1,4 @@
-import { LayoutPanelLeft, NotebookPen, BookOpenText, PackageOpen, ChartSpline, ChefHat, Info, ChevronFirst, ChevronLast, User, EllipsisVertical, Settings } from "lucide-react";
+import { LayoutPanelLeft, NotebookPen, BookOpenText, PackageOpen, ChartSpline, ChefHat, Info, ChevronFirst, ChevronLast, User, EllipsisVertical, Settings, Users } from "lucide-react";
 import { useState } from "react";
 import logo from "../assets/darklogo.svg";
 import { Link } from 'react-router-dom';
@@ -52,11 +52,9 @@ const Sidebar = ({noturno}) => {
                 
                 </ul>
                 <ul className="flex flex-col flex-1 justify-around">
-                    <Link to = "/ajuda"><li className={`cursor-pointer h-full flex p-2 items-center ${hoverBg} ${hoverText} rounded transition-all duration-200 truncate`}><div className={`flex min-w-10 ${!expanded && "justify-center"}`}><Info/></div><div className={`${expanded? "flex-grow" : "overflow-hidden transition-all w-0"}`}>Ajuda</div></li></Link>
-                    
-                    <Link to = "/ajustes"><li className={`cursor-pointer h-full flex p-2 items-center ${hoverBg} ${hoverText} rounded transition-all duration-200 truncate`}><div className={`flex min-w-10 ${!expanded && "justify-center"}`}><Settings /></div><div className={`${expanded? "flex-grow" : "overflow-hidden transition-all duration-300 w-0"}`}>Configurações</div></li></Link>
-                    
+                    <Link to = "/funcionarios"><li className={`cursor-pointer h-full flex p-2 items-center ${hoverBg} ${hoverText} rounded transition-all duration-200 truncate`}><div className={`flex min-w-10 ${!expanded && "justify-center"}`}><Users /></div><div className={`${expanded? "flex-grow" : "overflow-hidden transition-all duration-300 w-0"}`}>Funcionários</div></li></Link>
 
+                    <Link to = "/ajuda"><li className={`cursor-pointer h-full flex p-2 items-center ${hoverBg} ${hoverText} rounded transition-all duration-200 truncate`}><div className={`flex min-w-10 ${!expanded && "justify-center"}`}><Info/></div><div className={`${expanded? "flex-grow" : "overflow-hidden transition-all w-0"}`}>Ajuda</div></li></Link>
                 </ul>
         </nav>
     </header>

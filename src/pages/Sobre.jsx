@@ -1,5 +1,5 @@
 import Header from '../components/Header';
-
+import Footer from '../components/Footer'
 const Sobre = () => {
 
   return (
@@ -34,6 +34,7 @@ const Sobre = () => {
           </div>
         </div>
       </main>
+      <Footer/>
     </div>
   );
 };
