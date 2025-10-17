@@ -1,92 +1,84 @@
 import Header from '../components/Header';
-import { Mail, User, MessageSquare } from 'lucide-react'; // Ícones para os campos
-import Footer from '../components/Footer'
+import Footer from '../components/Footer';
+import { Mail, User, MessageSquare } from 'lucide-react';
+
 const Contato = () => {
   return (
     <div className="bg-slate-50 min-h-screen flex flex-col">
       <Header />
-      <main className="flex-1 flex flex-col items-center justify-center p-4 sm:p-6 md:p-8">
-        <div className="w-full max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 bg-white rounded-xl shadow-md">
+
+      <main className="flex-1 flex flex-col items-center justify-center m-3">
+        <div className="flex flex-col items-center w-full max-w-2xl px-6 sm:px-8 md:px-10 py-10 md:py-12">
           
-          <h1 className="text-4xl md:text-5xl font-bold text-blue-950 text-center mb-4">
+          <h1 className="flex items-center justify-center text-4xl md:text-5xl font-medium text-blue-950 mb-3">
             Entre em Contato
           </h1>
-          <p className="text-center text-gray-600 mb-10">
+          <h2 className="text-blue-800 text-center text-lg md:text-xl mb-10 leading-relaxed">
             Tem alguma dúvida ou sugestão? Preencha o formulário abaixo.
-          </p>
+          </h2>
 
-          <form className="space-y-6">
+          <form className="w-full flex flex-col gap-5">
+            
             {/* Campo Nome */}
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                Seu Nome
-              </label>
+            <label className="text-lg flex flex-col gap-2">
+              Nome:
               <div className="relative">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                  <User className="h-5 w-5 text-gray-400" aria-hidden="true" />
-                </div>
+                <User className="absolute left-3 top-5 text-gray-400" size={20} />
                 <input
                   type="text"
                   name="name"
                   id="name"
-                  className="block w-full rounded-md border-gray-300 pl-10 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-3"
-                  placeholder="John Doe"
+                  placeholder="ex: João Silva"
+                  className="inset-shadow-xs focus:ring focus:outline-none focus:border-blue-600 bg-white py-4 px-10 rounded border border-slate-300 text-slate-900 w-full"
                 />
               </div>
-            </div>
+            </label>
 
             {/* Campo Email */}
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                Seu Email
-              </label>
+            <label className="text-lg flex flex-col gap-2">
+              E-mail:
               <div className="relative">
-                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                  <Mail className="h-5 w-5 text-gray-400" aria-hidden="true" />
-                </div>
+                <Mail className="absolute left-3 top-5 text-gray-400" size={20} />
                 <input
                   type="email"
                   name="email"
                   id="email"
-                  className="block w-full rounded-md border-gray-300 pl-10 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-3"
-                  placeholder="voce@exemplo.com"
+                  placeholder="ex: voce@email.com"
+                  className="inset-shadow-xs focus:ring focus:outline-none focus:border-blue-600 bg-white py-4 px-10 rounded border border-slate-300 text-slate-900 w-full"
                 />
               </div>
-            </div>
+            </label>
 
             {/* Campo Mensagem */}
-            <div>
-              <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                Mensagem
-              </label>
+            <label className="text-lg flex flex-col gap-2">
+              Mensagem:
               <div className="relative">
-                 <div className="pointer-events-none absolute top-3 left-0 flex items-center pl-3">
-                  <MessageSquare className="h-5 w-5 text-gray-400" aria-hidden="true" />
-                </div>
+                <MessageSquare className="absolute left-3 top-5 text-gray-400" size={20} />
                 <textarea
                   name="message"
                   id="message"
                   rows={5}
-                  className="block w-full rounded-md border-gray-300 pl-10 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-3"
                   placeholder="Escreva sua mensagem aqui..."
-                />
+                  className="inset-shadow-xs focus:ring focus:outline-none focus:border-blue-600 bg-white py-4 px-10 rounded border border-slate-300 text-slate-900 w-full"
+                ></textarea>
               </div>
-            </div>
+            </label>
 
-            {/* Botão de Envio */}
-            <div>
+            {/* Botão Enviar */}
+            <div className="text-lg flex flex-col gap-1">
               <button
                 type="submit"
-                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-300"
+                className="flex items-center justify-center bg-orange-500 text-white py-4 font-medium transition-colors duration-300 hover:bg-orange-400 cursor-pointer w-full rounded disabled:bg-orange-300"
               >
                 Enviar Mensagem
               </button>
             </div>
-          </form>
 
+          </form>
         </div>
       </main>
-      <Footer/>
+
+      <Footer />
     </div>
   );
 };

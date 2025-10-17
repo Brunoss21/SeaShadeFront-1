@@ -69,7 +69,7 @@ const Cadastro = () => {
             <PiUserCirclePlus size="35" strokeWidth={4} />Faça seu cadastro
           </h1>
           <h2 className="text-blue-800 text-center flex-wrap text-lg">
-            Já tem uma conta? <Link to="/login"><span className="border-b hover:text-blue-600">Entrar</span></Link>
+            Já tem uma conta? <Link to="/login"><span className="border-b hover:text-blue-600">Entre no Seashade</span></Link>
           </h2>
         </div>
 
