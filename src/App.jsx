@@ -33,10 +33,10 @@ const App = () => {
 
 
         {/* Rotas Protegidas */}
-        <Route path='/novo-pedido' element={<ProtectedRoute>  <NovoPedido /> </ProtectedRoute> } />
-        <Route path='/cardapio' element={<ProtectedRoute> <Cardapio /> </ProtectedRoute>} />
+        <Route path='/novo-pedido' element={  <NovoPedido />  } />
+        <Route path='/cardapio' element={ <Cardapio /> } />
         <Route path='/comandas' element={<Comandas />} />
-        <Route path='/estoque' element={<ProtectedRoute> <Estoque /> </ProtectedRoute>} />
+        <Route path='/estoque' element={ <Estoque /> } />
         <Route path='/modo-producao' element={<Producao />} />
         <Route path='/inicio' element={<Inicio />} />
         <Route path='/relatorios' element={<Relatorios />} />
