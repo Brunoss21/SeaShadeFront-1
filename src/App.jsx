@@ -15,6 +15,7 @@ import Relatorios from './pages/Relatorios'
 import Ajuda from './pages/Ajuda'
 import Funcionarios from './pages/Config'
 import ContaConfig from './pages/ContaConfig'
+import GerenciarGuardaSois from './pages/GerenciarGuardaSois';
 import AlterarSenha from './pages/AlterarSenha'
 import Sobre from './pages/Sobre'
 import Contato from './pages/Contato'
@@ -44,6 +45,7 @@ const App = () => {
         <Route path='/funcionarios' element={<Funcionarios />} />
         <Route path='/conta' element={<ContaConfig />} />
         <Route path='/conta/mudar-senha' element={<AlterarSenha />} />
+        <Route path='/config/guardasois' element={<GerenciarGuardaSois />} />
 
         {/* essa rota existe apenas para teste */}
         <Route path='/comandas/more' element={<ComandasMore />}/>

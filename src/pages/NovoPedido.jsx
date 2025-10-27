@@ -1,12 +1,107 @@
 import Sidebar from "../components/Sidebar"
 import HeaderLogged from "../components/HeaderLogged"
 import IconList from "../components/IconList"
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Settings, CircleQuestionMark } from 'lucide-react'
+import apiClient from '../services/apiClient';
+import { useAuth } from '../context/AuthContext';
 
 const NovoPedido = () => {
-const link = "";
-const quantidade = 150;    
+    const { user } = useAuth();
+    const navigate = useNavigate();
+
+    const [guardaSois, setGuardaSois] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+    const [selectedGuardaSolId, setSelectedGuardaSolId] = useState(null);
+    const [observacoes, setObservacoes] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const fetchGuardaSois = async () => {
+        const quiosqueId = user?.quiosque?.quiosqueId || user?.quiosqueId;
+        if (!quiosqueId) {
+            setError("Quiosque não identificado."); setLoading(false); return;
+        }
+        setLoading(true);
+        try {
+            const response = await apiClient.get(`/api/quiosques/${quiosqueId}/guardasois`);
+            setGuardaSois(response.data);
+            setError('');
+        } catch (err) {
+            console.error("Erro ao buscar guarda-sóis:", err);
+            setError("Não foi possível carregar os guarda-sóis.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // --- EFEITO PARA BUSCAR DADOS AO CARREGAR ---
+    useEffect(() => {
+        if (user) {
+            fetchGuardaSois();
+        }
+    }, [user]);
+
+    // --- HANDLERS ---
+    const handleGuardaSolClick = (guardaSol) => {
+        if (guardaSol.status === 'LIVRE') {
+            setSelectedGuardaSolId(guardaSol.id);
+            setError('');
+        } else {
+            setError(`Guarda-sol ${guardaSol.identificacao} está ocupado.`);
+            setSelectedGuardaSolId(null); 
+        }
+    };
+
+    const handleCriarComanda = async (e) => {
+        e.preventDefault();
+        if (!selectedGuardaSolId) {
+            setError("Por favor, selecione um guarda-sol disponível na grade.");
+            return;
+        }
+        setIsSubmitting(true);
+        setError('');
+        try {
+            const response = await apiClient.post('/api/comandas', {
+                guardaSolId: selectedGuardaSolId
+                // TODO: Adicionar 'observacoes' se o backend aceitar
+            });
+            console.log("Comanda criada:", response.data);
+            navigate(`/comandas/${response.data.id}`); // Ajuste a rota de destino
+        } catch (err) {
+            console.error("Erro ao criar comanda:", err);
+            setError(err.response?.data?.message || "Falha ao criar comanda.");
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+    // --- VALORES CALCULADOS ---
+    const total = guardaSois.length;
+    const disponiveis = guardaSois.filter(g => g.status === 'LIVRE').length;
+    const ocupados = total - disponiveis;
+    const selectedGuardaSolIdentificacao = guardaSois.find(g => g.id === selectedGuardaSolId)?.identificacao;
+
+
+    // --- RENDERIZAÇÃO ---
+    if (loading && !guardaSois.length) {
+  return (
+    <div className="flex h-screen items-center justify-center">
+      <p>Carregando guarda-sóis...</p>
+    </div>
+  );
+}
+
+if (error && !guardaSois.length) {
+  return (
+    <div className="flex h-screen items-center justify-center">
+      <p className="text-red-500">{error}</p>
+      {/*  adicionar um botão para tentar novamente aqui */}
+    </div>
+  );
+}
+
     return(
         <div className="text-slate-600 flex h-screen ">
             <Sidebar/>
@@ -15,13 +110,14 @@ const quantidade = 150;
             <main className="flex h-full flex-col lg:flex-row gap-10">
                 <div className="flex flex-col">
                     <h1 className="text-2xl md:text-3xl font-bold">Criar Comanda</h1>
-                    <form>
+                    <form onSubmit={handleCriarComanda}>
                         <fieldset className="flex flex-2 flex-col gap-3 my-5">
                          <label>
                             <input
                             className="inset-shadow-sm focus:ring focus:outline-none focus:border-blue-600 bg-white py-4 lg:py-3 px-5 rounded border border-slate-300 text-slate-900 w-full" 
-                            type="text" 
-                            name=""
+                            type="text"
+                            readOnly
+                            value={user?.name || 'Carregando...'}
                             placeholder="Atendente"/>
                          </label>
 
@@ -29,21 +125,35 @@ const quantidade = 150;
                             <input
                             className="inset-shadow-sm focus:ring focus:outline-none focus:border-blue-600 bg-white py-4 lg:py-3 px-5 rounded border border-slate-300 text-slate-900 w-full" 
                             type="text" 
-                            name=""
+                            readOnly
+                            value={selectedGuardaSolIdentificacao ? `#${selectedGuardaSolIdentificacao}` : 'Selecione na grade'}
                             placeholder="Número do guarda-sol"/>
                          </label>
 
-                            <label className="flex justify-between items-center text-lg">
+                         <label className="flex justify-between items-center text-lg">
                                 {/* Mostrar informações ao passar o mouse no icone de interrogação */}
-                            <span className="flex gap-2 items-center">Pedido rápido <CircleQuestionMark size="18"/></span>
-                            <input type="checkbox" className="transform scale-123"/>
+                                <span className="flex gap-2 items-center">Pedido rápido <CircleQuestionMark size="18"/></span>
+                                <input type="checkbox" className="transform scale-123"/>
                          </label>
 
                          <label>
-                            <textarea className="inset-shadow-sm focus:ring focus:outline-none focus:border-blue-600 bg-white py-4 lg:py-3 px-5 rounded border border-slate-300 text-slate-900 w-full" rows="4" cols="50" placeholder="Observações (opcional)"></textarea>
+                            <textarea 
+                            className="inset-shadow-sm focus:ring focus:outline-none focus:border-blue-600 bg-white py-4 lg:py-3 px-5 rounded border border-slate-300 text-slate-900 w-full" 
+                            rows="4" cols="50" 
+                            placeholder="Observações (opcional)"
+                            value={observacoes}
+                            onChange={(e) => setObservacoes(e.target.value)}
+                            ></textarea>
                          </label>
-                                {/* esse link existe apenas para teste */}
-                            <Link className="text-lg cursor-pointer shadow-sm bg-blue-600 text-slate-50 font-medium rounded py-2 text-center" to="/comanda1">Confirmar</Link>
+
+                         {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+                              
+                            <button
+                                type="submit"
+                                disabled={isSubmitting || !selectedGuardaSolId}
+                                className="text-lg cursor-pointer shadow-sm bg-blue-600 text-slate-50 font-medium rounded py-2 text-center">
+                                {isSubmitting ? 'Criando...' : 'Confirmar'}
+                            </button>
                         </fieldset>
                     </form>
                 </div>
@@ -57,29 +167,32 @@ const quantidade = 150;
                     <div className="flex flex-wrap gap-3 items-center">
                         
                         <div className="bg-slate-50 rounded-lg px-3 py-1 shadow-sm text-slate-800 text-sm md:text-base">
-                        Quantidade: {quantidade}
+                        Quantidade: {total}
                         </div>
                         <div className="bg-green-100 rounded-lg px-3 py-1 shadow-sm text-green-800 text-sm md:text-base">
-                        Disponíveis: {quantidade}
+                        Disponíveis: {disponiveis}
                         </div>
                         <div className="bg-red-100 rounded-lg px-3 py-1 shadow-sm text-red-800 text-sm md:text-base">
-                        Ocupados: 0
+                        Ocupados: {ocupados}
                         </div>
                         <div className="flex items-center">
-                            <Settings />
-                        </div>
-                        
+                            <Link to="/config/guardasois" title="Gerenciar Guarda-sóis"><Settings /></Link>
+                        </div> 
                     </div>
 
                     {/* Lista de ícones */}
                     <div className="bg-slate-50 shadow rounded-lg md:p-4 p-2 max-h-80 overflow-y-auto">
-                    <IconList quantidade={quantidade} />
+                    <IconList 
+                        guardaSois={guardaSois}
+                        onGuardaSolClick={handleGuardaSolClick}
+                        selectedGuardaSolId={selectedGuardaSolId}
+                    />
+                    {guardaSois.length === 0 && !loading && <p className='text-center text-slate-500'>Nenhum guarda-sol cadastrado.</p>}
                     </div>
                 </div>
             </main>
         </div>
-        </div>
-
-    )
+    </div>
+    );
 }
 export default NovoPedido;

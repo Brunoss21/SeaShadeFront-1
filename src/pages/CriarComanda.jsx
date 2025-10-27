@@ -1,8 +1,41 @@
 import Sidebar from "../components/Sidebar"
 import HeaderLogged from "../components/HeaderLogged"
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Search,Clock, CircleQuestionMark,Check, Ban } from 'lucide-react'
+import apiClient from '../services/apiClient';
+import { useAuth } from '../context/AuthContext';
 const CriarComanda = () => {
+
+    const { comandaId } = useParams();
+    const { user } = useAuth();
+    const navigate = useNavigate();
+
+    // --- Estados das comandas ---
+    const [comanda, setComanda] = useState(null);
+    const [cardapio, setCardapio] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+    const [showCardapioModal, setShowCardapioModal] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [quantidadeToAdd, setQuantidadeToAdd] = useState(1);
+    const [selectedProduto, setSelectedProduto] = useState(null);
+    const [isSubmittingItem, setIsSubmittingItem] = useState(false);
+    const [isSubmittingAction, setIsSubmittingAction] = useState(false);
+    const [actionError, setActionError] = useState('');
+
+    const quiosqueId = user?.quiosque?.quiosqueId || user?.quiosqueId;
+
+    
+
+
+
+
+
+
+
+
+
+
 
      return(
         <div className="text-slate-600 flex h-screen ">

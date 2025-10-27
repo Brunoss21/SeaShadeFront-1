@@ -7,6 +7,11 @@ import { useAuth } from "../context/AuthContext";
 const Sidebar = ({noturno}) => {
 
     const { user } = useAuth(); 
+
+    const hasAdminOrBasicRole = () => {
+        if (!user || !user.roles) return false;
+        return user.roles.some(role => role.name === 'ADMIN' || role.name === 'BASIC');
+    };
    
     const getInitials = (name) => {
         if (!name) return '';
@@ -58,15 +63,17 @@ const Sidebar = ({noturno}) => {
                 </ul>
         </nav>
     </header>
+    {user && (
     <Link to="/conta">
        <div className={`relative px-4 cursor-pointer ${hoverBg2} transition-all duration-300 flex border-t ${borderColor} ${hoverText} items-center justify-center py-4 ${textColor}`}>
             <div className={`flex items-center overflow-hidden transition-all duration-200 ${expanded ? "flex-1 gap-3" : "w-0"}`}>
                 <div className={`rounded aspect-square ${noturno? "bg-azul-900" : "bg-azul-200"} flex justify-center items-center font-extrabold text-azul-600 w-9 md:w-13`}>
-                    <User size="auto"/>
+                    
+                    {user.name ? getInitials(user.name) : <User size="auto"/>}
                 </div>
                 <div className="flex flex-col min-w-0">
-                    <div className="font-bold text-sm md:text-lg truncate">John Doe</div>
-                    <div className="text-xs md:text-sm truncate">johndoe@hotmail.com</div>
+                    <div className="font-bold text-sm md:text-lg truncate">{user.name || 'Usuário'}</div>
+                    <div className="text-xs md:text-sm truncate">{user.email || 'Email não disponível'}</div>
                 </div>
             </div>
             <button onClick={() => setExpanded(!expanded)} className="cursor-pointer">
@@ -74,9 +81,10 @@ const Sidebar = ({noturno}) => {
             </button>
         </div>
         </Link>
-</aside>
-    )
-}
+        )}
+    </aside>
+    );
+};
 
 export default Sidebar;
 
