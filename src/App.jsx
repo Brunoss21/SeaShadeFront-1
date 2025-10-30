@@ -50,7 +50,7 @@ const App = () => {
         {/* essa rota existe apenas para teste */}
         <Route path='/comandas/more' element={<ComandasMore />}/>
         {/* essa rota existe apenas para teste */}
-        <Route path='/comanda1' element={<CriarComanda />}/>
+        <Route path="/comandas/:comandaId" element={<CriarComanda />} />
 
       </Routes>
     
