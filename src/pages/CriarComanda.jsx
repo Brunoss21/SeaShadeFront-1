@@ -163,22 +163,25 @@ const CriarComanda = () => {
 
   const handleCancelar = async () => {
     setShowCancelarModal(true);
-    /*}
-    setIsSubmittingAction(true);
-    setActionError('');
-    setError('');
-    try {
-      await apiClient.patch(`/api/comandas/${comandaId}/cancelar`);
-      toast.success("Comanda cancelada com sucesso!");
-      navigate('/comandas');
-    } catch (err) {
-      console.error("Erro ao cancelar comanda:", err);
-      const errorMsg = err.response?.data?.message || "Não foi possível cancelar a comanda.";
-      toast.setActionError(errorMsg);
-    } finally {
-      setIsSubmittingAction(false);
-    }*/
   };
+
+  const confirmarCancelamento = async () => {
+    setShowCancelarModal(false); // Fecha o modal
+    setIsSubmittingAction(true);
+    setActionError('');
+    setError('');
+    try {
+      await apiClient.patch(`/api/comandas/${comandaId}/cancelar`);
+      toast.success("Comanda cancelada com sucesso!"); 
+      navigate('/comandas');
+    } catch (err) {
+      console.error("Erro ao cancelar comanda:", err);
+      const errorMsg = err.response?.data?.message || "Não foi possível cancelar a comanda.";
+      toast.error(errorMsg); // Usando toast
+    } finally {
+      setIsSubmittingAction(false);
+    }
+  };
 
   // Função para o clique no item do dropdown
   const handleAutocompleteAddItemClick = async (produto) => {
@@ -243,14 +246,17 @@ const CriarComanda = () => {
   // Calcula subtotal
   const subtotal = comanda?.itens?.reduce((sum, item) => sum + (item.precoUnitario * item.quantidade), 0) || 0;
 
-  // --- Variáveis de controle de status ---
-  const isComandaAberta = comanda?.status === 'ABERTA';
-  const isComandaNaCozinha = comanda?.status === 'NA_COZINHA';
-  const isComandaEmPreparo = comanda?.status === 'EM_PREPARO';
-  const isComandaPronta = comanda?.status === 'PRONTA';
-  const canEditComanda = isComandaAberta || isComandaPronta; // Pode editar se ABERTA ou PRONTA
-  const canFinalizarComanda = isComandaAberta || isComandaPronta; // Finaliza se ABERTA (sem ir pra cozinha) ou PRONTA
-  const canCancelComanda = isComandaAberta || isComandaNaCozinha || isComandaEmPreparo || isComandaPronta; // Pode cancelar exceto FECHADA
+  // --- Variáveis de controle de status ---
+  const isComandaAberta = comanda?.status === 'ABERTA';
+  const isComandaNaCozinha = comanda?.status === 'NA_COZINHA';
+  const isComandaEmPreparo = comanda?.status === 'EM_PREPARO';
+  const isComandaProntaParaEntrega = comanda?.status === 'PRONTO_PARA_ENTREGA';
+  
+const canEditComanda = isComandaAberta || isComandaProntaParaEntrega; 
+  // (Permite finalizar se ABERTA ou PRONTA)
+  const canFinalizarComanda = isComandaAberta || isComandaProntaParaEntrega;
+  // (Pode cancelar em qualquer estado ativo)
+  const canCancelComanda = isComandaAberta || isComandaNaCozinha || isComandaEmPreparo || isComandaProntaParaEntrega;
 
   // Helper para mostrar o status
   const getStatusDisplay = (status) => {
