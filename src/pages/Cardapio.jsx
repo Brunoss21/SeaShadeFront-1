@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 
 const Cardapio = () => {
     // ESTADOS PARA DADOS DA API E CONTROLE DE UI
-    const [produtos, setProdutos] = useState([]); // Armazena os produtos vindos do backend
+    const [produtos, setProdutos] = useState([]); 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [categoriaSelecionada, setCategoriaSelecionada] = useState('Todos');
@@ -90,9 +90,7 @@ const Cardapio = () => {
     };
 
     const handleDeletarItem = async (produtoId) => {
-        // Aqui virá a lógica para chamar apiClient.delete(...) para remover um produto
         console.log("Deletar item com ID:", produtoId);
-        // Após o sucesso, você pode re-buscar a lista ou remover o item do estado 'produtos'
         setShowModal2(false);
     };
 

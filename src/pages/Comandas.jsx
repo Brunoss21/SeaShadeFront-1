@@ -1,13 +1,13 @@
 import Sidebar from "../components/Sidebar"
 import HeaderLogged from "../components/HeaderLogged"
 import Comanda from '../components/Comanda'
-import { Clock, ClipboardPenLine } from 'lucide-react' // Importe o ícone do histórico
+import { Clock, ClipboardPenLine } from 'lucide-react' 
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom' // Importe o Link
+import { Link } from 'react-router-dom' 
 import apiClient from '../services/apiClient'
 import { useAuth } from '../context/AuthContext'
 
-const Pedidos = () => { // Ou o nome do seu componente
+const Pedidos = () => {
     const { user } = useAuth();
     const [comandas, setComandas] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -46,8 +46,18 @@ const Pedidos = () => { // Ou o nome do seu componente
     // Busca inicial dos dados
     useEffect(() => {
         fetchComandasAtivas();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [quiosqueId]); 
+
+    // Efeito para ATUALIZAÇÃO AUTOMÁTICA (Polling)
+    useEffect(() => {
+        // intervalo para rodar a função a cada 15 segundos
+        const intervalId = setInterval(() => {
+            console.log("Atualizando comandas..."); 
+            fetchComandasAtivas();
+        }, 15000); // 15 segundos
+
+        return () => clearInterval(intervalId);
+    }, [quiosqueId]);
 
     // Filtrar as comandas em listas separadas
     const comandasAguardando = comandas.filter(

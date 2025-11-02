@@ -2,7 +2,7 @@ import Sidebar from "../components/Sidebar"
 import HeaderLogged from "../components/HeaderLogged"
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { Search, Clock, CircleQuestionMark, Check, Ban, CircleHelp, ChefHat, X } from 'lucide-react'
+import { Search, Clock, CircleQuestionMark, Check, Ban, CircleHelp, ChefHat, X, CheckCheck } from 'lucide-react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import apiClient from '../services/apiClient';
@@ -30,6 +30,7 @@ const CriarComanda = () => {
   const [observacoes, setObservacoes] = useState('');
   const [inlineSearchTerm, setInlineSearchTerm] = useState('');
   const [showAutocompleteDropdown, setShowAutocompleteDropdown] = useState(false);
+  const [submittingItemId, setSubmittingItemId] = useState(null);
 
   const quiosqueId = user?.quiosque?.quiosqueId || user?.quiosqueId;
 
@@ -113,7 +114,7 @@ const CriarComanda = () => {
     setError('');
     try {
       const response = await apiClient.patch(`/api/comandas/${comandaId}/enviar-cozinha`);
-      setComanda(response.data); // Atualiza o estado local da comanda com o novo status
+      setComanda(response.data);
     } catch (err) {
       console.error("Erro ao enviar para cozinha:", err);
       toast.error(err.response?.data?.message || "Falha ao enviar para a cozinha.");
@@ -125,21 +126,6 @@ const CriarComanda = () => {
   // --- FUNÇÕES DE AÇÃO (FINALIZAR / CANCELAR) ---
   const handleFinalizar = async () => {
       setShowFinalizarModal(true);
-    /*}
-    setIsSubmittingAction(true);
-    setActionError('');
-    setError('');
-    try {
-      await apiClient.patch(`/api/comandas/${comandaId}/finalizar`);
-      toast.success("Comanda finalizada com sucesso!");
-      navigate('/comandas');
-    } catch (err) {
-      console.error("Erro ao finalizar comanda:", err);
-      const errorMsg = err.response?.data?.message || "Não foi possível finalizar a comanda.";
-      toast.error(errorMsg);
-    } finally {
-      setIsSubmittingAction(false);
-    }*/
   };
 
   const confirmarFinalizacao = async () => {
@@ -177,9 +163,30 @@ const CriarComanda = () => {
     } catch (err) {
       console.error("Erro ao cancelar comanda:", err);
       const errorMsg = err.response?.data?.message || "Não foi possível cancelar a comanda.";
-      toast.error(errorMsg); // Usando toast
+      toast.error(errorMsg); 
     } finally {
       setIsSubmittingAction(false);
+    }
+  };
+
+  const handleMarcarEntregue = async (itemId) => {
+    setSubmittingItemId(itemId); // Mostra o 'loading' para este item
+    // Limpa erros antigos
+    setActionError('');
+    setError('');
+
+    try {
+
+      await apiClient.patch(`/api/comandas/itens/${itemId}/marcar-entregue`);
+      
+      // Atualiza a página inteira para mostrar o novo status
+      await fetchData(); 
+    } catch (err) {
+      console.error("Erro ao marcar item como entregue:", err);
+      const errorMsg = err.response?.data?.message || "Não foi possível marcar a entrega.";
+      setError(errorMsg); // Mostra o erro no box de resumo
+    } finally {
+      setSubmittingItemId(null); // Esconde o 'loading'
     }
   };
 
@@ -248,8 +255,8 @@ const CriarComanda = () => {
 
   // --- Variáveis de controle de status ---
   const isComandaAberta = comanda?.status === 'ABERTA';
-  const isComandaNaCozinha = comanda?.status === 'NA_COZINHA';
-  const isComandaEmPreparo = comanda?.status === 'EM_PREPARO';
+  const isComandaNaCozinha = comanda?.status === 'NA COZINHA';
+  const isComandaEmPreparo = comanda?.status === 'EM PREPARO';
   const isComandaProntaParaEntrega = comanda?.status === 'PRONTO_PARA_ENTREGA';
   
 const canEditComanda = isComandaAberta || isComandaProntaParaEntrega; 
@@ -260,23 +267,23 @@ const canEditComanda = isComandaAberta || isComandaProntaParaEntrega;
 
   // Helper para mostrar o status
   const getStatusDisplay = (status) => {
-    switch (status) {
-      case 'ABERTA':
-        return { text: 'Aguardando Pedido', color: 'text-orange-500', Icon: Clock };
-      case 'NA_COZINHA':
-        return { text: 'Na Cozinha', color: 'text-blue-500', Icon: ChefHat };
-      case 'EM_PREPARO':
-        return { text: 'Em Preparo', color: 'text-amber-500', Icon: ChefHat };
-      case 'PRONTA':
-        return { text: 'Pronto para Servir', color: 'text-green-500', Icon: Check };
-      case 'FECHADA':
-        return { text: 'Finalizada', color: 'text-slate-500', Icon: Check };
-      case 'CANCELADA':
-        return { text: 'Cancelada', color: 'text-red-500', Icon: Ban };
-      default:
-        return { text: status || 'Indefinido', color: 'text-slate-500', Icon: CircleHelp };
-    }
-  };
+    switch (status) {
+      case 'ABERTA':
+        return { text: 'Aguardando Pedido', color: 'text-orange-500', Icon: Clock };
+      case 'NA_COZINHA':
+        return { text: 'Na Cozinha', color: 'text-blue-500', Icon: ChefHat };
+      case 'EM_PREPARO':
+        return { text: 'Em Preparo', color: 'text-amber-500', Icon: ChefHat };
+      case 'PRONTO_PARA_ENTREGA':
+        return { text: 'Pronto para Servir', color: 'text-green-500', Icon: Check };
+      case 'FECHADA':
+        return { text: 'Finalizada', color: 'text-slate-500', Icon: Check };
+      case 'CANCELADA':
+        return { text: 'Cancelada', color: 'text-red-500', Icon: Ban };
+      default:
+        return { text: status || 'Indefinido', color: 'text-slate-500', Icon: CircleHelp };
+    }
+  };
   const statusDisplay = getStatusDisplay(comanda?.status);
 
 
@@ -363,7 +370,6 @@ const canEditComanda = isComandaAberta || isComandaProntaParaEntrega;
                             onMouseDown={() => handleAutocompleteAddItemClick(produto)}
                           >
                             <span className="font-medium">{produto.nome}</span>
-                            {/* O '+' da sua imagem */}
                             <span className="text-blue-600 font-bold text-lg">+</span>
                           </div>
                         ))}
@@ -426,24 +432,74 @@ const canEditComanda = isComandaAberta || isComandaProntaParaEntrega;
                 </div>
               </div>
               <div className="flex font-semibold text-slate-500 px-2">
-                <h3 className="flex-1">Qtd</h3>
-                <h3 className="flex-3 text-center">Produto</h3>
-                <h3 className="flex-1 text-right">Valor</h3>
-              </div>
+                <h3 className="flex-3">Produto</h3>
+                <h3 className="flex-1 text-center">Valor</h3>
+                <h3 className="flex-1 text-right">Ação</h3>
+              </div>
               
               <div className="overflow-y-auto flex-1 pr-2">
-                {comanda?.itens?.length > 0 ? (
-                  comanda.itens.map((item) => {
-                    const isPendente = item.status === 'PENDENTE' || item.status === 'EM_PREPARO' || item.status === 'NA_COZINHA';
-                    const itemClass = isPendente ? 'text-amber-500 font-medium' : 'text-slate-600';
-                    return (
-                      <div key={item.id} className={`flex text-lg justify-between border-t pt-4 pb-4 border-slate-300 px-2 ${itemClass}`}>
-                        <p className="flex-1">{item.quantidade}</p>
-                        <p className="flex-3 text-center">{item.produtoNome}</p>
-                        <p className="flex-1 text-right">{formatCurrency(item.precoUnitario * item.quantidade)}</p>
-                      </div>
-                    );
-                  })
+                {comanda?.itens?.length > 0 ? (
+                  comanda.itens.map((item) => {
+                    
+                      // --- Lógica de Status do Item ---
+                      let itemClass = "text-slate-700"; 
+                      let statusText = item.status; 
+
+                      if (!item.status) {
+                           itemClass = "text-slate-400";
+                           statusText = "Status Indefinido";
+                      } else if (item.status === 'ENTREGUE') {
+                          itemClass = "text-slate-400 line-through";
+                          statusText = "Entregue";
+                      } else if (item.status === 'PRONTO') {
+                          itemClass = "text-green-600 font-semibold";
+                          statusText = "Pronto p/ Servir";
+                      } else if (item.status === 'NA_COZINHA' || item.status === 'EM_PREPARO') {
+                          itemClass = "text-blue-500";
+                          statusText = "Na Cozinha";
+                      } else if (item.status === 'PENDENTE') {
+                           itemClass = "text-amber-500";
+                           statusText = "Aguardando Envio";
+                      }
+
+                      const isCarregando = submittingItemId === item.id;
+
+                    return (
+                        // Div da linha inteira
+                        <div key={item.id} className={`flex text-lg items-center justify-between border-t py-3 border-slate-300 px-2 ${itemClass}`}>
+                            
+                            {/* Coluna 1: Produto (Qtd, Nome e Status) */}
+                            <div className="flex-3">
+                              <p>
+                                <span className="font-bold">{item.quantidade}x</span> {item.produtoNome}
+                              </p>
+                              <p className="text-xs font-semibold uppercase">{statusText}</p>
+                            </div>
+
+                            {/* Coluna 2: Valor */}
+                            <p className="flex-1 text-right">{formatCurrency(item.precoUnitario * item.quantidade)}</p>
+
+                            {/* Coluna 3: Ação (Botão) */}
+                            <div className="flex-1 text-right pl-3">
+                              {/* Só mostra o botão se o item estiver PRONTO */}
+                              {item.status === 'PRONTO' && (
+                                <button
+                                  title="Confirmar Entrega"
+                                  className="text-blue-600 hover:text-blue-800 disabled:text-slate-300"
+                                  onClick={() => handleMarcarEntregue(item.id)}
+                                  disabled={isCarregando}
+                                >
+                                  {isCarregando ? (
+                                    <Clock size={20} className="animate-spin" />
+                                  ) : (
+                                    <CheckCheck size={20} strokeWidth={3} />
+                                  )}
+                                </button>
+                              )}
+                            </div>
+                      </div>
+                    );
+                  })
                 ) : (
                   <p className="text-center text-slate-500 py-10">Nenhum item na comanda.</p>
                 )}

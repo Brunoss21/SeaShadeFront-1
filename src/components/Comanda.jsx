@@ -1,5 +1,25 @@
 import { Clock, ZoomIn, ClipboardPenLine, Check } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+
+// Função para calcular o tempo passado
+function calculateTimeAgo(startTime) {
+    if (!startTime) return ''; 
+
+    const start = new Date(startTime);
+    // data/hora atual do navegador
+    const now = new Date(); 
+    
+    // Diferença em milissegundos
+    const diffMs = now.getTime() - start.getTime(); 
+    // Converte para minutos e arredonda
+    const diffMins = Math.round(diffMs / 60000); 
+
+    if (diffMins < 1) return 'agora';
+    if (diffMins === 1) return 'há 1 min';
+    return `há ${diffMins} min`;
+}
+
 const Comanda = ({ comanda }) => {
 
     const {
@@ -7,12 +27,13 @@ const Comanda = ({ comanda }) => {
         numeroComanda,
         guardaSol,
         status,
-        itens = []
+        itens = [],
+        dataAbertura
     } = comanda;
 
     let statusDisplay = {
         text: 'Em Preparo',
-        color: 'bg-sky-500', // Azul (Padrão: NA_COZINHA, EM_PREPARO)
+        color: 'bg-sky-500', 
         Icon: ClipboardPenLine
     };
 
@@ -41,6 +62,21 @@ const Comanda = ({ comanda }) => {
         return acc + (preco * qt);
     }, 0);
 
+    const [timeAgo, setTimeAgo] = useState(() => calculateTimeAgo(dataAbertura));
+
+    useEffect(() => {
+        // Define o tempo inicial
+        setTimeAgo(calculateTimeAgo(dataAbertura));
+
+        // Define um intervalo para atualizar o timer a cada 60 segundos
+        const intervalId = setInterval(() => {
+            setTimeAgo(calculateTimeAgo(dataAbertura));
+        }, 60000); // 60000 ms = 1 minuto
+
+        // Limpa o intervalo quando o componente é desmontado
+        return () => clearInterval(intervalId);
+    }, [dataAbertura]); 
+
 
     return (
         <Link 
@@ -55,6 +91,7 @@ const Comanda = ({ comanda }) => {
                 <p className="text-slate-50 font-medium flex items-center justify-center gap-2 text-sm md:text-base">
                     <statusDisplay.Icon size={16} strokeWidth={3} />
                     {statusDisplay.text}
+                    <span className="font-normal opacity-90">({timeAgo})</span>
                 </p> 
             </div>
             
@@ -71,12 +108,23 @@ const Comanda = ({ comanda }) => {
                         const qt = item.quantidade || 0;
                         const precoTotalLinha = qt * preco;
 
+                        let itemClassName = "text-slate-700"; // Cor padrão
+                            
+                            // Se o item foi entregue, fica cinza e riscado
+                            if (item.status === 'ENTREGUE') {
+                                itemClassName = "text-slate-400 line-through";
+                            }
+                            // (Opcional) 
+                            // else if (item.status === 'PRONTO') {
+                            //     itemClassName = "text-green-600 font-semibold";
+                            // }
+
                         return (
-                            <div key={item.id || index } className="flex text-center py-2 border-b border-slate-200">
-                                <p className='flex-1'>{qt}</p>
-                                <p className='flex-5 truncate px-1' title={nome}>{nome}</p>
-                                <p className='flex-2'>{formatCurrency(precoTotalLinha)}</p>
-                            </div>
+                            <div key={item.id || index } className={`flex text-center py-2 border-b border-slate-200 ${itemClassName}`}>
+                                    <p className='flex-1'>{qt}</p>
+                                    <p className='flex-5 truncate px-1' title={nome}>{nome}</p>
+                                    <p className='flex-2'>{formatCurrency(precoTotalLinha)}</p>
+                            </div>
                         )
                     })
                 ) : (

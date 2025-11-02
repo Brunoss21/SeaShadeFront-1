@@ -1,5 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
+import { ToastContainer } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Cadastro from './pages/Cadastro';
@@ -21,9 +23,10 @@ import Sobre from './pages/Sobre'
 import Contato from './pages/Contato'
 const App = () => {
   return (
-    
-     
-      <Routes>
+  <>
+    <ToastContainer autoClose={3000} hideProgressBar />
+  
+    <Routes>
         {/* Rotas Públicas */}
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
@@ -31,29 +34,25 @@ const App = () => {
         <Route path='/sobre' element={<Sobre />} />
         <Route path='/contato' element={<Contato />} />
 
-
-
         {/* Rotas Protegidas */}
-        <Route path='/novo-pedido' element={  <NovoPedido />  } />
-        <Route path='/cardapio' element={ <Cardapio /> } />
-        <Route path='/comandas' element={<Comandas />} />
-        <Route path='/estoque' element={ <Estoque /> } />
-        <Route path='/modo-producao' element={<Producao />} />
-        <Route path='/inicio' element={<Inicio />} />
-        <Route path='/relatorios' element={<Relatorios />} />
-        <Route path='/ajuda' element={<Ajuda />} />
-        <Route path='/funcionarios' element={<Funcionarios />} />
-        <Route path='/conta' element={<ContaConfig />} />
-        <Route path='/conta/mudar-senha' element={<AlterarSenha />} />
-        <Route path='/config/guardasois' element={<GerenciarGuardaSois />} />
-
-        {/* essa rota existe apenas para teste */}
-        <Route path='/comandas/more' element={<ComandasMore />}/>
-        {/* essa rota existe apenas para teste */}
-        <Route path="/comandas/:comandaId" element={<CriarComanda />} />
-
-      </Routes>
-    
+        <Route element={<ProtectedRoute />}>
+            <Route path='/novo-pedido' element={ <NovoPedido /> } />
+            <Route path='/cardapio' element={ <Cardapio /> } />
+            <Route path='/comandas' element={<Comandas />} />
+            <Route path='/estoque' element={ <Estoque /> } />
+            <Route path='/modo-producao' element={<Producao />} />
+            <Route path='/inicio' element={<Inicio />} />
+            <Route path='/relatorios' element={<Relatorios />} />
+            <Route path='/ajuda' element={<Ajuda />} />
+            <Route path='/funcionarios' element={<Funcionarios />} />
+            <Route path='/conta' element={<ContaConfig />} />
+            <Route path='/conta/mudar-senha' element={<AlterarSenha />} />
+            <Route path='/config/guardasois' element={<GerenciarGuardaSois />} />
+            <Route path='/comandas/more' element={<ComandasMore />}/>
+            <Route path="/comandas/:comandaId" element={<CriarComanda />} />
+        </Route>
+    </Routes>
+  </> 
     
   )
 }

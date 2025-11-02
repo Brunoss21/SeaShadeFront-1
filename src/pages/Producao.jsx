@@ -1,8 +1,8 @@
 import Sidebar from "../components/Sidebar";
 import { Check, ChefHat } from "lucide-react"; 
 import { useState, useEffect } from 'react';
-import apiClient from '../services/apiClient'; // Seu cliente API
-import { useAuth } from '../context/AuthContext'; // Para o quiosqueId
+import apiClient from '../services/apiClient'; 
+import { useAuth } from '../context/AuthContext';
 
 const Producao = () => {
   const { user } = useAuth();
@@ -59,7 +59,7 @@ const Producao = () => {
             fetchPedidosCozinha(); 
         } catch (err) {
             console.error("Erro ao marcar em preparo:", err);
-            alert("Falha ao marcar em preparo. Tente novamente."); // TODO: usar toast
+            toast.error("Falha ao marcar em preparo. Tente novamente.");
         }
     };
 
@@ -67,11 +67,10 @@ const Producao = () => {
     const handleMarcarPronto = async (comandaId) => {
          try {
             await apiClient.patch(`/api/comandas/${comandaId}/marcar-pronta`);
-            // Atualiza a lista imediatamente (o pedido sumirá da tela)
             fetchPedidosCozinha();
         } catch (err) {
             console.error("Erro ao marcar como pronto:", err);
-            alert("Falha ao marcar como pronto. Tente novamente."); // TODO: usar toast
+            toast.error("Falha ao marcar como pronto. Tente novamente.");
         }
     };
     
@@ -109,27 +108,30 @@ const Producao = () => {
             >
               {/* Cabeçalho do pedido */}
               <h2 className="font-bold text-xl mb-3 text-gray-100">
-                {/* MUDE para pedido.numeroComanda ou pedido.id */}
                 Pedido da Comanda #{pedido.numeroComanda || pedido.id}
               </h2>
 
-              {/* Dados do pedido - AJUSTE OS CAMPOS */}
+              {/* Dados do pedido */}
               <p className="text-sm text-gray-300">
                 Cliente: <span className="font-semibold">?</span>
               </p>
               <p className="text-sm text-gray-300">
-                {/* MUDE para os dados do DTO */}
                 Guarda-sol: <span className="font-semibold">{pedido.guardaSol?.identificacao || '?'}</span>
               </p>
               <p className="text-sm text-gray-300 mb-3">
                 Atendido por: <span className="font-semibold">{pedido.atendente?.nome || user?.name || '?'}</span>
               </p>
 
-              {/* Itens - AJUSTE OS CAMPOS */}
+              {/* Itens */}
               <div className="flex flex-col gap-2 border-t border-gray-700 pt-3 flex-1">
-                {pedido.itens.map((item) => (
+                {pedido.itens
+                    .filter(item => 
+                        item.status === 'NA_COZINHA' || 
+                        item.status === 'EM_PREPARO'
+                    )
+                    .map((item) => (
                   <div
-                    key={item.id} // MUDE para item.id
+                    key={item.id} 
                     className="flex justify-between text-gray-200 font-medium"
                   >
           _         <span className="flex-1">{item.quantidade}x</span>
@@ -139,7 +141,7 @@ const Producao = () => {
                 ))}
               </div>
 
-              {/* Ações - ADICIONE LÓGICA CONDICIONAL */}
+              {/* Ações */}
               <div className="flex gap-2 mt-4">
                 
                 {/* Se o status for NA_COZINHA, mostra o botão "Iniciar Preparo" */}

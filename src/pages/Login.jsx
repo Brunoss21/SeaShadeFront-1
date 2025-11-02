@@ -14,7 +14,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
   const [codigo, setCodigo] = useState('');
-  const [showCodigo, setShowCodigo] = useState(false); // controla exibição do input de código
+  const [showCodigo, setShowCodigo] = useState(false); 
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -24,7 +24,7 @@ const Login = () => {
     setLoading(true);
 
     if (!showCodigo) {
-      // login tradicional
+      // --- FLUXO DE LOGIN PARA O DONO (E-MAIL/SENHA) ---
       if (!email || !pass) {
         setError('Preencha todos os campos');
         setLoading(false);
@@ -61,37 +61,30 @@ const Login = () => {
         setLoading(false);
       }
     } else {
-      // login por código
-      if (!codigo) {
-        setError('Insira o código');
-        setLoading(false);
-        return;
-      }
+            // --- FLUXO DE LOGIN PARA O ATENDENTE (CÓDIGO) ---
+            try {
+                const response = await axios.post('http://localhost:8080/api/atendentes/login', { 
+                    codigo: codigo, 
+                });
+                
+                const atendenteData = {
+                    accessToken: response.data.accessToken, 
+                    name: response.data.userName, 
+                    email: null, 
+                    roles: [{ name: response.data.userRole }], 
+                    quiosqueId: response.data.quiosqueId
+                };
+                
+                login(atendenteData); 
+                navigate('/comandas'); // Redireciona para a tela de comandas
 
-      try {
-        const response = await axios.post('http://localhost:8080/api/auth/login-codigo', {
-          code: codigo,
-        });
-
-        localStorage.setItem('user', JSON.stringify(response.data));
-        const profileResponse = await apiClient.get('/api/users/me');
-
-        const userDataCompleto = {
-          ...profileResponse.data,
-          accessToken: response.data.accessToken,
-          ExpiresIn: response.data.ExpiresIn
-        };
-
-        login(userDataCompleto);
-        navigate('/cardapio');
-      } catch (err) {
-        localStorage.removeItem('user');
-        setError(err.response?.data?.message || 'Código inválido');
-      } finally {
-        setLoading(false);
-      }
-    }
-  };
+            } catch (err) {
+                setError(err.response?.data?.message || 'Código inválido');
+            } finally {
+                setLoading(false);
+            }
+        }
+    };
 
   return (
     <div className="bg-slate-50 min-h-screen flex flex-col gap-1 md:gap-6">
