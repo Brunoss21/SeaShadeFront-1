@@ -7,7 +7,7 @@ import apiClient from '../services/apiClient';
 import { useAuth } from '../context/AuthContext';
 
 const Estoque = () => {
-    // --- ESTADOS PARA OS DADOS VINDOS DA API ---
+    // --- ESTADOS ---
     const [itensEstoque, setItensEstoque] = useState([]);
     const [historico, setHistorico] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -49,11 +49,15 @@ const Estoque = () => {
                 apiClient.get(`/api/quiosques/${quiosqueId}/estoque`),
                 apiClient.get(`/api/quiosques/${quiosqueId}/estoque/historico`)
             ]);
-            setItensEstoque(itensResponse.data);
-            setHistorico(historicoResponse.data);
+
+            setItensEstoque(Array.isArray(itensResponse.data) ? itensResponse.data : []);
+            setHistorico(Array.isArray(historicoResponse.data) ? historicoResponse.data : []);
+
         } catch (err) {
             console.error("Erro ao buscar dados do estoque:", err);
             setError("Não foi possível carregar os dados do estoque.");
+            setItensEstoque([]); // Seta array vazio em caso de erro
+            setHistorico([]);
         } finally {
             setLoading(false);
         }
@@ -215,7 +219,7 @@ const Estoque = () => {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-slate-200">
-                                    {itensEstoque.map((item) => (
+                                    {Array.isArray(itensEstoque) && itensEstoque.map((item) => (
                                         <tr key={item.id} className="hover:bg-slate-50">
                                             <td className="px-4 py-2">#{item.id}</td>
                                             <td className="px-4 py-2">{item.nome}</td>
@@ -239,7 +243,7 @@ const Estoque = () => {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-slate-200">
-                                    {historico.map((mov) => (
+                                    {Array.isArray(historico) && historico.map((mov) => (
                                         <tr key={mov.id} className="hover:bg-slate-50">
                                             <td className="px-4 py-2">#{mov.id}</td>
                                             <td className="px-4 py-2">{mov.itemEstoque.nome} (#{mov.itemEstoque.id})</td>

@@ -1,161 +1,232 @@
-// Relatorios.jsx
 import Sidebar from "../components/Sidebar";
-import HeaderLogged from "../components/HeaderLogged";
-import { TrendingUp, BarChart as BarIcon, PieChart, Activity, Users } from "lucide-react";
-import React from "react";
+import { TrendingUp, BarChart as BarIcon, PieChart, Activity, Users, List } from "lucide-react"; 
+import React, { useState, useEffect } from "react";
 import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
-  BarChart, Bar,
-  AreaChart, Area,
-  ComposedChart, ResponsiveContainer
+  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+  BarChart, Bar,
+  AreaChart, Area,
+  ComposedChart, ResponsiveContainer
 } from "recharts";
+import { useAuth } from '../context/AuthContext'; 
+import apiClient from '../services/apiClient'; 
+
+const COLORS = ["#3b82f6", "#10b981", "#f59e0b", "#ef4444", "#6366f1", "#8b5cf6"];
 
 const Relatorios = () => {
-  // Dados mockados
-  const vendasDiarias = [
-    { dia: "Seg", vendas: 12 },
-    { dia: "Ter", vendas: 18 },
-    { dia: "Qua", vendas: 14 },
-    { dia: "Qui", vendas: 20 },
-    { dia: "Sex", vendas: 25 },
-    { dia: "Sáb", vendas: 30 },
-    { dia: "Dom", vendas: 22 },
-  ];
+  // --- 1. Estados ---
+  const [vendasDiarias, setVendasDiarias] = useState([]);
+  const [faturamentoMensal, setFaturamentoMensal] = useState([]);
+  const [receitaDespesa, setReceitaDespesa] = useState([]);
+  const [vendasCompras, setVendasCompras] = useState([]);
+  const [pedidosPorFuncionario, setPedidosPorFuncionario] = useState([]);
+  const [pedidosMensais, setPedidosMensais] = useState([]); 
+  const [nomesAtendentes, setNomesAtendentes] = useState([]);
+  
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const { user } = useAuth();
+  const quiosqueId = user?.quiosque?.quiosqueId || user?.quiosqueId;
 
-  const faturamentoMensal = [
-    { mes: "Jan", faturamento: 1200 },
-    { mes: "Fev", faturamento: 1500 },
-    { mes: "Mar", faturamento: 1800 },
-    { mes: "Abr", faturamento: 2000 },
-    { mes: "Mai", faturamento: 2200 },
-    { mes: "Jun", faturamento: 2100 },
-  ];
+  // --- 2. Busca os dados na API  ---
+  useEffect(() => {
+  	if (!quiosqueId) {
+  	  setError("ID do Quiosque não encontrado.");
+  	  setLoading(false);
+  	  return;
+  	}
 
-  const receitaDespesa = [
-    { mes: "Jan", receita: 2000, despesa: 1200 },
-    { mes: "Fev", receita: 2500, despesa: 1500 },
-    { mes: "Mar", receita: 3000, despesa: 1800 },
-    { mes: "Abr", receita: 2800, despesa: 2000 },
-  ];
+  	const fetchRelatorios = async () => {
+  	  setLoading(true);
+  	  setError('');
+  	  try {
+  	    const anoAtual = new Date().getFullYear();
 
-  const vendasCompras = [
-    { mes: "Jan", vendas: 50, compras: 30 },
-    { mes: "Fev", vendas: 65, compras: 40 },
-    { mes: "Mar", vendas: 80, compras: 55 },
-    { mes: "Abr", vendas: 75, compras: 60 },
-  ];
+  	    const [
+  	      resVendasDiarias,
+  	      resFaturamento,
+  	      resReceitaDespesa,
+  	      resVendasCompras,
+  	      resPedidosFuncMensal, 
+          resPedidosMensais 
+  	    ] = await Promise.all([
+  	      apiClient.get(`/api/quiosques/${quiosqueId}/relatorios/vendas-diarias`, { params: { dias: 7 } }),
+  	      apiClient.get(`/api/quiosques/${quiosqueId}/relatorios/faturamento-mensal`, { params: { ano: anoAtual } }),
+  	      apiClient.get(`/api/quiosques/${quiosqueId}/relatorios/receita-despesa-mensal`, { params: { ano: anoAtual } }),
+  	      apiClient.get(`/api/quiosques/${quiosqueId}/relatorios/vendas-compras-mensal`, { params: { ano: anoAtual } }),
+  	      apiClient.get(`/api/quiosques/${quiosqueId}/relatorios/pedidos-por-atendente-mensal`, { params: { ano: anoAtual } }),
+          apiClient.get(`/api/quiosques/${quiosqueId}/relatorios/pedidos-mensais`, { params: { ano: anoAtual } }) 
+  	    ]);
 
-  const pedidosPorFuncionario = [
-    { mes: "Jan", Bruno: 10, Ana: 12, Carlos: 8, Maria: 15 },
-    { mes: "Fev", Bruno: 15, Ana: 14, Carlos: 10, Maria: 18 },
-    { mes: "Mar", Bruno: 12, Ana: 18, Carlos: 9, Maria: 20 },
-    { mes: "Abr", Bruno: 20, Ana: 16, Carlos: 14, Maria: 22 },
-    { mes: "Mai", Bruno: 18, Ana: 20, Carlos: 15, Maria: 25 },
-    { mes: "Jun", Bruno: 22, Ana: 19, Carlos: 16, Maria: 28 },
-  ];
+  	    setVendasDiarias(resVendasDiarias.data);
+  	    setFaturamentoMensal(resFaturamento.data);
+  	    setReceitaDespesa(resReceitaDespesa.data);
+  	    setVendasCompras(resVendasCompras.data);
+  	    setPedidosPorFuncionario(resPedidosFuncMensal.data); 
+        setPedidosMensais(resPedidosMensais.data); 
 
-  return (
-    <div className="text-slate-800 flex min-h-screen">
-      <Sidebar className="w-[250px]" />
-      <div className="flex flex-col w-full pl-20 py-4 pr-4 md:pl-23 md:pr-8 mt-13">
-        <h1 className="text-3xl font-bold mb-8 text-blue-600">Relatórios</h1>
+  	    if (resPedidosFuncMensal.data && resPedidosFuncMensal.data.length > 0) { 
+  	      const atendenteKeys = Object.keys(resPedidosFuncMensal.data[0]).filter(key => key !== 'mes');
+  	      setNomesAtendentes(atendenteKeys);
+  	    }
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          {/* Vendas Totais Diárias */}
-          <div className="bg-slate-50 rounded-xl shadow-sm p-6 flex flex-col h-80">
+  	  } catch (err) {
+  	    console.error("Erro ao buscar relatórios:", err);
+  	    setError("Não foi possível carregar os relatórios.");
+  	  } finally {
+  	    setLoading(false);
+  	  }
+  	};
+
+  	fetchRelatorios();
+  }, [quiosqueId]);
+
+
+  // --- 3. Telas de Loading e Erro (Sem mudança) ---
+  if (loading || error) {
+  	// ... (código de loading/error) ...
+    return (
+        <div className="text-slate-800 flex min-h-screen">
+          <Sidebar className="w-[250px]" />
+          <div className="flex flex-col w-full pl-20 py-4 pr-4 md:pl-23 md:pr-8 mt-13">
+            <h1 className="text-3xl font-bold mb-8 text-blue-600">Relatórios</h1>
+            {loading && <p className="text-lg">Carregando relatórios...</p>}
+            {error && <p className="text-lg text-red-500">{error}</p>}
+          </div>
+        </div>
+    );
+  }
+
+  return (
+  	<div className="text-slate-800 flex min-h-screen">
+  	  <Sidebar className="w-[250px]" />
+  	  <div className="flex flex-col w-full pl-20 py-4 pr-4 md:pl-23 md:pr-8 mt-13">
+  	    <h1 className="text-3xl font-bold mb-8 text-blue-600">Relatórios</h1>
+
+  	    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+  	      {/* Vendas Totais Diárias */}
+  	      <div className="bg-slate-50 rounded-xl shadow-sm p-6 flex flex-col h-80">
+  	        {/* ... (código do gráfico) ... */}
             <div className="flex items-center gap-3 mb-4 text-blue-600">
-              <TrendingUp size={20} />
-              <h2 className="text-xl font-semibold">Vendas Diárias</h2>
-            </div>
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={vendasDiarias}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="dia" />
-                <YAxis />
-                <Tooltip />
-                <Line type="monotone" dataKey="vendas" stroke="#3b82f6" strokeWidth={2} />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
+              <TrendingUp size={20} />
+              <h2 className="text-xl font-semibold">Vendas Diárias (Últimos 7 dias)</h2>
+            </div>
+    	        <ResponsiveContainer width="100%" height="100%">
+    	          <LineChart data={vendasDiarias}>
+    	            <CartesianGrid strokeDasharray="3 3" />
+    	            <XAxis dataKey="diaSemana" /> 
+    	            <YAxis />
+    	            <Tooltip />
+    	            <Line type="monotone" dataKey="quantidade" stroke="#3b82f6" strokeWidth={2} /> 
+    	          </LineChart>
+    	        </ResponsiveContainer>
+  	      </div>
 
-          {/* Faturamento por Mês */}
-          <div className="bg-slate-50 rounded-xl shadow-sm p-6 flex flex-col h-80">
+  	      {/* Faturamento por Mês */}
+  	      <div className="bg-slate-50 rounded-xl shadow-sm p-6 flex flex-col h-80">
+  	        {/* ... (código do gráfico) ... */}
             <div className="flex items-center gap-3 mb-4 text-blue-600">
-              <BarIcon size={20} />
-              <h2 className="text-xl font-semibold">Faturamento por Mês</h2>
-            </div>
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={faturamentoMensal}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="mes" />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="faturamento" fill="#10b981" />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
+      	          <BarIcon size={20} />
+      	          <h2 className="text-xl font-semibold">Faturamento por Mês</h2>
+      	        </div>
+    	        <ResponsiveContainer width="100%" height="100%">
+    	          <BarChart data={faturamentoMensal}>
+    	            <CartesianGrid strokeDasharray="3 3" />
+    	            <XAxis dataKey="mes" /> 
+    	            <YAxis />
+    	            <Tooltip formatter={(value) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value)} />
+    	            <Bar dataKey="faturamento" fill="#10b981" /> 
+    	          </BarChart>
+    	        </ResponsiveContainer>
+  	      </div>
 
-          {/* Receita x Despesa */}
-          <div className="bg-slate-50 rounded-xl shadow-sm p-6 flex flex-col h-80">
+  	      {/* Receita x Despesa */}
+  	      <div className="bg-slate-50 rounded-xl shadow-sm p-6 flex flex-col h-80">
+  	        {/* ... (código do gráfico) ... */}
             <div className="flex items-center gap-3 mb-4 text-blue-600">
-              <PieChart size={20} />
-              <h2 className="text-xl font-semibold">Receita x Despesa</h2>
-            </div>
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={receitaDespesa}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="mes" />
-                <YAxis />
-                <Tooltip />
-                <Area type="monotone" dataKey="receita" stackId="1" stroke="#3b82f6" fill="#3b82f6" />
-                <Area type="monotone" dataKey="despesa" stackId="1" stroke="#ef4444" fill="#ef4444" />
-              </AreaChart>
-            </ResponsiveContainer>
-          </div>
+      	          <PieChart size={20} />
+      	          <h2 className="text-xl font-semibold">Receita x Despesa</h2>
+      	        </div>
+    	        <ResponsiveContainer width="100%" height="100%">
+    	          <AreaChart data={receitaDespesa}>
+    	            <CartesianGrid strokeDasharray="3 3" />
+    	            <XAxis dataKey="mes" /> 
+    	            <YAxis />
+    	            <Tooltip formatter={(value) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value)} />
+  	            <Area type="monotone" dataKey="receita" stackId="1" stroke="#3b82f6" fill="#3b82f6" /> 
+  	            <Area type="monotone" dataKey="despesa" stackId="1" stroke="#ef4444" fill="#ef4444" /> 
+  	          </AreaChart>
+  	        </ResponsiveContainer>
+  	      </div>
 
-          {/* Vendas x Compras */}
-          <div className="bg-slate-50 rounded-xl shadow-sm p-6 flex flex-col h-80">
+  	      {/* Vendas x Compras */}
+  	      <div className="bg-slate-50 rounded-xl shadow-sm p-6 flex flex-col h-80">
+  	        {/* ... (código do gráfico) ... */}
             <div className="flex items-center gap-3 mb-4 text-blue-600">
-              <Activity size={20} />
-              <h2 className="text-xl font-semibold">Vendas x Compras</h2>
-            </div>
-            <ResponsiveContainer width="100%" height="100%">
-              <ComposedChart data={vendasCompras}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="mes" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="vendas" barSize={20} fill="#3b82f6" />
-                <Line type="monotone" dataKey="compras" stroke="#f59e0b" strokeWidth={2} />
-              </ComposedChart>
-            </ResponsiveContainer>
-          </div>
+    	          <Activity size={20} />
+    	          <h2 className="text-xl font-semibold">Vendas x Compras</h2>
+    	        </div>
+  	        <ResponsiveContainer width="100%" height="100%">
+  	          <ComposedChart data={vendasCompras}>
+  	            <CartesianGrid strokeDasharray="3 3" />
+  	            <XAxis dataKey="mes" /> 
+  	            <YAxis />
+  	            <Tooltip />
+  	            <Legend />
+  	            <Bar dataKey="vendas" barSize={20} fill="#3b82f6" /> 
+  	            <Line type="monotone" dataKey="compras" stroke="#f59e0b" strokeWidth={2} /> 
+  	          </ComposedChart>
+  	        </ResponsiveContainer>
+  	      </div>
 
-          {/* Pedidos Atendidos por Funcionário */}
-          <div className="bg-slate-50 rounded-xl shadow-sm p-6 flex flex-col h-80">
+  	      {/* Pedidos Atendidos por Funcionário */}
+  	      <div className="bg-slate-50 rounded-xl shadow-sm p-6 flex flex-col h-80">
+  	        {/* ... (código do gráfico) ... */}
             <div className="flex items-center gap-3 mb-4 text-blue-600">
-              <Users size={20} />
-              <h2 className="text-xl font-semibold">Pedidos Atendidos por Funcionário (Mensal)</h2>
-            </div>
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={pedidosPorFuncionario}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="mes" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line type="monotone" dataKey="Bruno" stroke="#3b82f6" strokeWidth={2} />
-                <Line type="monotone" dataKey="Ana" stroke="#10b981" strokeWidth={2} />
-                <Line type="monotone" dataKey="Carlos" stroke="#f59e0b" strokeWidth={2} />
-                <Line type="monotone" dataKey="Maria" stroke="#ef4444" strokeWidth={2} />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+    	          <Users size={20} />
+  	          <h2 className="text-xl font-semibold">Pedidos Atendidos por Funcionário (Mensal)</h2>
+  	        </div>
+  	        <ResponsiveContainer width="100%" height="100%">
+  	          <LineChart data={pedidosPorFuncionario}>
+  	            <CartesianGrid strokeDasharray="3 3" />
+  	            <XAxis dataKey="mes" />
+  	            <YAxis />
+  	            <Tooltip />
+  	            <Legend />
+  	            {nomesAtendentes.map((nome, index) => (
+  	              <Line 
+  	                key={nome}
+  	                type="monotone" 
+  	                dataKey={nome} 
+  	                stroke={COLORS[index % COLORS.length]} 
+  	                strokeWidth={2} 
+  	              />
+  	            ))}
+  	          </LineChart>
+  	        </ResponsiveContainer>
+  	      </div>
+          
+          {/* --- 5. GRÁFICO "PEDIDOS POR MÊS"  --- */}
+          <div className="bg-slate-50 rounded-xl shadow-sm p-6 flex flex-col h-80">
+            <div className="flex items-center gap-3 mb-4 text-blue-600">
+              <List size={20} />
+              <h2 className="text-xl font-semibold">Total de Pedidos por Mês</h2>
+            </div>
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={pedidosMensais}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="mes" />
+                <YAxis />
+                <Tooltip />
+  	            <Legend />
+  	            <Bar dataKey="quantidade" fill="#8884d8" />
+    	          </BarChart>
+    	        </ResponsiveContainer>
+  	      </div>
+
+  	    </div>
+  	  </div>
+  	</div>
+  );
 };
 
 export default Relatorios;

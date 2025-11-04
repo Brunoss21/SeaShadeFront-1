@@ -52,7 +52,7 @@ const Login = () => {
         };
 
         login(userDataCompleto);
-        navigate('/cardapio');
+        navigate('/inicio');
 
       } catch (err) {
         localStorage.removeItem('user');

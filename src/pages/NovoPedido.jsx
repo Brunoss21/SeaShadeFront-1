@@ -26,7 +26,7 @@ const NovoPedido = () => {
         setLoading(true);
         try {
             const response = await apiClient.get(`/api/quiosques/${quiosqueId}/guardasois`);
-            setGuardaSois(response.data);
+            setGuardaSois(Array.isArray(response.data) ? response.data : []);
             setError('');
         } catch (err) {
             console.error("Erro ao buscar guarda-sóis:", err);

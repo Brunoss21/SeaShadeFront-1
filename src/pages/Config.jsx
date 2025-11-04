@@ -31,7 +31,7 @@ const Config = () => {
 
   // --- CARREGA OS FUNCIONÁRIOS QUANDO A PÁGINA ABRE ---
   useEffect(() => {
-    fetchFuncionarios();s
+    fetchFuncionarios();
   }, [quiosqueId]);
 
   // --- FUNÇÃO PARA ADICIONAR (POST) ---
