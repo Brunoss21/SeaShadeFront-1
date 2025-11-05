@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+
 const apiClient = axios.create({
-  baseURL: 'https://api-seashade.onrender.com',
+  baseURL: API_URL, 
 });
 
 apiClient.interceptors.request.use(
