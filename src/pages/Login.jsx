@@ -63,7 +63,7 @@ const Login = () => {
     } else {
             // --- FLUXO DE LOGIN PARA O ATENDENTE (CÓDIGO) ---
             try {
-                const response = await axios.post('https://api-seashade.onrender.com/api/atendentes/login', { 
+                const response = await axios.post('https://seashade-backend.onrender.com/api/atendentes/login', { 
                     codigo: codigo, 
                 });
                 
