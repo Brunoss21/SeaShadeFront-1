@@ -37,7 +37,7 @@ const Login = () => {
       }
 
       try {
-        const loginResponse = await axios.post('https://api-seashade.onrender.com/api/auth/login', {
+        const loginResponse = await axios.post('https://seashade-backend.onrender.com/api/auth/login', {
           email,
           password: pass,
         });
